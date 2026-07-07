@@ -1,0 +1,5923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>LITON HOUSE Electricity Bill — By Shuvro Deb</title>
+<script>
+  (function(){
+    try{
+      var t = localStorage.getItem('voltLedgerTheme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    }catch(e){ document.documentElement.setAttribute('data-theme','dark'); }
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj4KPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMmRkNGYwIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2NzlmZiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+CjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE1IiBmaWxsPSJ1cmwoI2cpIi8+CjxwYXRoIGQ9Ik0zNSA4TDE1IDM1SDI5TDI2IDU2TDQ5IDI2SDMzTDM1IDhaIiBmaWxsPSIjMGEwZDE4Ii8+Cjwvc3ZnPg==">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj4KPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMmRkNGYwIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2NzlmZiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+CjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE1IiBmaWxsPSJ1cmwoI2cpIi8+CjxwYXRoIGQ9Ik0zNSA4TDE1IDM1SDI5TDI2IDU2TDQ5IDI2SDMzTDM1IDhaIiBmaWxsPSIjMGEwZDE4Ii8+Cjwvc3ZnPg==">
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  :root{
+    --bg-0:#080b16;
+    --bg-1:#0d1224;
+    --glass:rgba(255,255,255,0.055);
+    --glass-strong:rgba(255,255,255,0.09);
+    --glass-border:rgba(255,255,255,0.14);
+    --ink:#eef1f8;
+    --ink-dim:#98a2bd;
+    --ink-faint:#5c6788;
+    --cyan:#2dd4f0;
+    --violet:#a679ff;
+    --amber:#ffc857;
+    --pink:#ff6fa5;
+    --green:#4ee6a8;
+    --red:#ff6b6b;
+    --radius:20px;
+    --radius-sm:13px;
+  }
+  [data-theme="light"]{
+    --bg-0:#eef4ff;
+    --bg-1:#ffffff;
+    --glass:rgba(255,255,255,0.72);
+    --glass-strong:rgba(255,255,255,0.92);
+    --glass-border:rgba(30,64,175,0.14);
+    --ink:#0f2044;
+    --ink-dim:#4c5c7d;
+    --ink-faint:#8494b3;
+    --cyan:#2563eb;
+    --violet:#1d4ed8;
+    --pink:#3b82f6;
+    --amber:#d97706;
+    --green:#059669;
+    --red:#dc2626;
+  }
+  [data-theme="light"] body{
+    background:
+      radial-gradient(900px 600px at 8% -8%, rgba(37,99,235,0.10), transparent 60%),
+      radial-gradient(1000px 700px at 105% 8%, rgba(29,78,216,0.10), transparent 55%),
+      radial-gradient(800px 600px at 50% 115%, rgba(59,130,246,0.08), transparent 55%),
+      linear-gradient(180deg, var(--bg-0), var(--bg-1));
+  }
+  [data-theme="light"] .glass{ box-shadow:0 8px 28px rgba(30,64,175,0.10), inset 0 1px 0 rgba(255,255,255,0.6); }
+  [data-theme="light"] .bg-orb{ opacity:0.28; }
+  [data-theme="light"] #bg3d{ opacity:0.35; }
+  [data-theme="light"] .floaty, [data-theme="light"] .float-item{ opacity:0.06 !important; }
+  [data-theme="light"] .hero h1{ background:linear-gradient(120deg,#0f2044, #2563eb 55%, #1d4ed8); -webkit-background-clip:text; background-clip:text; }
+  [data-theme="light"] .brand-mark{ box-shadow:0 0 20px rgba(37,99,235,0.35); }
+  [data-theme="light"] ::-webkit-scrollbar-thumb{ background:rgba(30,64,175,0.18); }
+  [data-theme="light"] .btn-primary{ color:#fff; }
+
+  /* ---------- Boot loading screen ---------- */
+  .boot-loader{
+    position:fixed; inset:0; z-index:9999;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:
+      radial-gradient(900px 600px at 8% -8%, rgba(45,212,240,0.16), transparent 60%),
+      radial-gradient(1000px 700px at 105% 8%, rgba(166,121,255,0.17), transparent 55%),
+      linear-gradient(180deg, var(--bg-0), var(--bg-1));
+    transition:opacity .6s ease, visibility .6s ease;
+  }
+  .boot-loader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+  .boot-logo{
+    width:78px; height:78px; border-radius:22px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, var(--cyan), var(--violet));
+    box-shadow:0 0 40px rgba(166,121,255,0.5);
+    margin-bottom:22px;
+    animation:bootPulse 2.2s ease-in-out infinite;
+  }
+  @keyframes bootPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.06); } }
+  .boot-title{
+    font-family:'Space Grotesk', sans-serif; font-weight:800; font-size:clamp(28px,6vw,42px);
+    letter-spacing:0.02em; margin-bottom:8px;
+    background:linear-gradient(120deg,#fff, #c9d3ff 45%, var(--cyan));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .boot-sub{
+    font-family:'Inter', sans-serif; font-size:12.5px; font-weight:600; color:var(--ink-dim);
+    letter-spacing:0.14em; text-transform:uppercase;
+  }
+  .boot-spinner{
+    margin-top:30px; width:28px; height:28px; border-radius:50%;
+    border:3px solid rgba(255,255,255,0.15); border-top-color:var(--cyan);
+    animation:spin 0.8s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .boot-logo{ animation:none; } }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(900px 600px at 8% -8%, rgba(45,212,240,0.16), transparent 60%),
+      radial-gradient(1000px 700px at 105% 8%, rgba(166,121,255,0.17), transparent 55%),
+      radial-gradient(800px 600px at 50% 115%, rgba(255,111,165,0.13), transparent 55%),
+      linear-gradient(180deg, var(--bg-0), var(--bg-1));
+    background-attachment: fixed;
+    min-height:100vh;
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{ background:rgba(166,121,255,0.35); }
+  #bg3d{ position:fixed; inset:0; z-index:0; pointer-events:none; display:block; width:100%; height:100%; }
+  .parallax-layer{ position:fixed; inset:0; z-index:0; pointer-events:none; will-change:transform; }
+  .bg-orb{
+    position:absolute; border-radius:50%; filter:blur(70px); opacity:0.5; pointer-events:none;
+    animation: drift 22s ease-in-out infinite alternate;
+  }
+  .orb1{ width:420px;height:420px; background:radial-gradient(circle, var(--cyan), transparent 70%); top:-120px; left:-100px; }
+  .orb2{ width:480px;height:480px; background:radial-gradient(circle, var(--violet), transparent 70%); top:20%; right:-160px; animation-delay:-8s;}
+  .orb3{ width:380px;height:380px; background:radial-gradient(circle, var(--pink), transparent 70%); bottom:-140px; left:30%; animation-delay:-15s;}
+  @keyframes drift{ from{ transform:translate(0,0) scale(1);} to{ transform:translate(30px,40px) scale(1.08);} }
+  @media (prefers-reduced-motion: reduce){ .bg-orb{animation:none;} }
+
+  /* ---------- Floating background words / logo / mini-lights ---------- */
+  .float-layer{ position:fixed; inset:0; z-index:2; pointer-events:none; overflow:hidden; }
+  .float-item{
+    position:absolute; pointer-events:auto; cursor:grab; user-select:none; -webkit-user-select:none;
+    -webkit-touch-callout:none; touch-action:none;
+    font-family:'Space Grotesk', sans-serif; font-weight:700; white-space:nowrap;
+    color:rgba(255,255,255,0.055); letter-spacing:0.05em; line-height:1;
+    animation: floatDrift var(--dur,26s) ease-in-out infinite alternate;
+    animation-delay: var(--delay,0s);
+    will-change: transform; transform-origin:center;
+  }
+  .float-item:active{ cursor:grabbing; }
+  .float-item.dragging{ animation:none !important; transition:none !important; z-index:5; }
+  @keyframes floatDrift{
+    0%{ transform:translate(0,0) rotate(0deg); }
+    50%{ transform:translate(var(--dx,40px), var(--dy,-30px)) rotate(var(--rot,3deg)); }
+    100%{ transform:translate(calc(var(--dx,40px) * -0.6), calc(var(--dy,-30px) * 0.8)) rotate(calc(var(--rot,3deg) * -1)); }
+  }
+  .float-logo{
+    width:66px; height:66px; border-radius:18px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, rgba(45,212,240,0.16), rgba(166,121,255,0.16));
+    border:1px solid rgba(255,255,255,0.08); opacity:0.55;
+  }
+  .float-logo svg{ width:32px; height:32px; opacity:0.6; }
+
+  .mini-light{
+    position:absolute; border-radius:50%; pointer-events:none;
+    animation: twinkle var(--tdur,4s) ease-in-out infinite;
+  }
+  @keyframes twinkle{ 0%,100%{ opacity:0.12; transform:scale(0.75);} 50%{ opacity:0.95; transform:scale(1.2);} }
+  @media (prefers-reduced-motion: reduce){ .float-item, .mini-light{ animation:none; } }
+  @media (max-width:700px){ .float-item{ font-size:calc(var(--fsz, 32px) * 0.7) !important; } }
+
+  #app{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:28px 20px 90px; }
+
+  h1,h2,h3,.display{ font-family:'Space Grotesk', sans-serif; letter-spacing:-0.01em; }
+  .mono{ font-family:'JetBrains Mono', monospace; font-feature-settings:"tnum"; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  /* ---------- Top bar ---------- */
+  .topbar{ display:flex; align-items:center; justify-content:space-between; margin-bottom:34px; gap:16px; flex-wrap:wrap; position:sticky; top:0; z-index:6; transition:background .3s ease, box-shadow .3s ease, backdrop-filter .3s ease; border-radius:16px;}
+  .topbar.scrolled{ background:rgba(10,13,24,0.55); backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%); box-shadow:0 10px 26px rgba(0,0,0,0.32); }
+  .brand{ display:flex; align-items:center; gap:12px; cursor:pointer; }
+  .brand-mark{
+    width:40px;height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, var(--cyan), var(--violet));
+    box-shadow:0 0 24px rgba(166,121,255,0.45);
+    flex-shrink:0;
+  }
+  .brand-mark svg{ width:22px;height:22px; }
+  .brand-text .k{ font-size:11px; letter-spacing:0.16em; color:var(--ink-faint); text-transform:uppercase; }
+  .brand-text .t{ font-size:19px; font-weight:600; }
+  .topbar-actions{ display:flex; gap:10px; align-items:center; }
+
+  .btn{
+    appearance:none; border:1px solid var(--glass-border); background:var(--glass); color:var(--ink);
+    padding:10px 18px; border-radius:999px; font-family:'Inter',sans-serif; font-size:14px; font-weight:600;
+    cursor:pointer; transition:transform .15s ease, background .2s ease, box-shadow .2s ease; backdrop-filter:blur(14px);
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn:hover{ background:var(--glass-strong); transform:translateY(-1px); }
+  .btn:active{ transform:translateY(0); }
+  .btn-primary{ background:linear-gradient(135deg, var(--cyan), var(--violet)); border:none; color:#0a0d18; box-shadow:0 6px 24px rgba(126,120,255,0.35);}
+  .btn-primary:hover{ filter:brightness(1.07); }
+  .btn-danger{ background:rgba(255,107,107,0.14); border-color:rgba(255,107,107,0.4); color:#ffb3b3;}
+  .btn-ghost{ background:transparent; border-color:transparent; color:var(--ink-dim); }
+  .btn-ghost:hover{ background:var(--glass); color:var(--ink);}
+  .btn-sm{ padding:7px 13px; font-size:12.5px; }
+  .btn:disabled{ opacity:0.4; cursor:not-allowed; transform:none; }
+
+  /* ---------- Glass card base ---------- */
+  .glass{
+    background:var(--glass); border:1px solid var(--glass-border); border-radius:var(--radius);
+    backdrop-filter:blur(20px) saturate(140%); -webkit-backdrop-filter:blur(20px) saturate(140%);
+    box-shadow:0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{ margin-bottom:38px; }
+  .hero-eyebrow{ font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--cyan); font-weight:600; margin-bottom:10px;}
+  .hero h1{ font-size:clamp(28px,4.4vw,44px); font-weight:700; margin:0 0 10px; line-height:1.08;
+    background:linear-gradient(120deg,#fff, #c9d3ff 45%, var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p{ color:var(--ink-dim); font-size:15.5px; max-width:560px; line-height:1.6; margin:0; }
+
+  /* ---------- Building tabs ---------- */
+  .tabs{ display:flex; gap:8px; margin:26px 0 18px; flex-wrap:wrap; }
+  .tab{ padding:9px 16px; border-radius:999px; font-size:13.5px; font-weight:600; color:var(--ink-dim); cursor:pointer; border:1px solid transparent; transition:all .2s ease;}
+  .tab:hover{ color:var(--ink); }
+  .tab.active{ background:var(--glass-strong); border-color:var(--glass-border); color:var(--ink); }
+
+  /* ---------- Room grid ---------- */
+  .room-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(190px,1fr)); gap:16px; }
+  .room-card{
+    padding:20px 18px; cursor:pointer; transition:transform .12s ease-out, box-shadow .22s ease, border-color .22s ease;
+    position:relative; overflow:hidden; transform-style:preserve-3d; will-change:transform;
+  }
+  .room-card::before{
+    content:''; position:absolute; inset:0; opacity:0; transition:opacity .3s ease;
+    background:linear-gradient(135deg, rgba(45,212,240,0.12), rgba(166,121,255,0.12));
+  }
+  .room-card:hover{ transform:translateY(-4px); border-color:rgba(255,255,255,0.28); box-shadow:0 14px 40px rgba(0,0,0,0.4);}
+  .room-card:hover::before{ opacity:1; }
+  .room-card-top{ display:flex; justify-content:space-between; align-items:flex-start; position:relative; z-index:1;}
+  .room-num{ font-size:12px; color:var(--ink-faint); letter-spacing:0.1em; font-weight:600; }
+  .room-label{ font-size:19px; font-weight:700; margin-top:2px; font-family:'Space Grotesk',sans-serif;}
+  .room-tenant{ font-size:12.5px; color:var(--ink-dim); margin-top:2px; min-height:16px;}
+  .gauge-wrap{ display:flex; align-items:center; justify-content:center; margin-top:14px; position:relative; z-index:1;}
+  .room-foot{ display:flex; justify-content:space-between; align-items:baseline; margin-top:12px; position:relative; z-index:1;}
+  .room-foot .bill{ font-size:16px; font-weight:700; }
+  .room-foot .lbl{ font-size:10.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-faint); }
+  .room-foot-item{ text-align:left; }
+  .room-foot-item.right{ text-align:right; }
+
+  /* ---------- Detail view ---------- */
+  .detail-header{ padding:26px 24px; margin-bottom:22px; display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; align-items:center;}
+  .detail-title{ display:flex; align-items:center; gap:16px; }
+  .detail-icon{ width:56px;height:56px;border-radius:16px; display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk'; font-weight:700; font-size:20px;
+    background:linear-gradient(135deg, var(--violet), var(--pink)); color:#0a0d18; flex-shrink:0;}
+  .detail-title h2{ margin:0; font-size:24px; }
+  .detail-title .sub{ color:var(--ink-dim); font-size:13.5px; margin-top:3px;}
+  .stat-row{ display:flex; gap:26px; flex-wrap:wrap; }
+  .stat{ text-align:right; }
+  .stat .v{ font-size:20px; font-weight:700; font-family:'JetBrains Mono'; }
+  .stat .l{ font-size:10.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.08em; margin-top:2px;}
+
+  .history-list{ display:flex; flex-direction:column; gap:12px; }
+  .history-card{ padding:18px 22px; display:grid; grid-template-columns:110px 1fr auto; gap:18px; align-items:center; transition:transform .12s ease-out, border-color .18s ease; will-change:transform; }
+  .history-card:hover{ transform:translateX(3px); border-color:rgba(255,255,255,0.24); }
+  .hc-month{ font-family:'Space Grotesk'; font-weight:600; font-size:15px; }
+  .hc-year-tag{ font-size:10.5px; color:var(--ink-faint); }
+  .hc-readings{ display:flex; gap:22px; flex-wrap:wrap; }
+  .hc-read-item .l{ font-size:10px; text-transform:uppercase; color:var(--ink-faint); letter-spacing:0.06em;}
+  .hc-read-item .v{ font-family:'JetBrains Mono'; font-size:14px; margin-top:2px;}
+  .hc-right{ text-align:right; display:flex; align-items:center; gap:14px; }
+  .hc-unit{ font-family:'JetBrains Mono'; font-size:13px; color:var(--ink-dim); background:rgba(255,255,255,0.06); padding:4px 10px; border-radius:8px;}
+  .hc-bill{ font-family:'JetBrains Mono'; font-weight:700; font-size:19px; }
+  .hc-manual-badge{ font-size:9.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--amber); background:rgba(255,200,87,0.14); padding:3px 8px; border-radius:6px; font-weight:700;}
+
+  .empty-state{ text-align:center; padding:60px 20px; color:var(--ink-dim); }
+  .empty-state svg{ opacity:0.35; margin-bottom:14px; }
+
+  /* ---------- Trend chart & detail actions ---------- */
+  .detail-actions{ display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:16px; }
+  .trend-card{ padding:22px 22px 10px; margin-bottom:20px; }
+  .trend-head{ display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:6px; }
+  .trend-head h3{ margin:0; font-size:16px; }
+  .metric-toggle{ display:flex; gap:6px; background:rgba(255,255,255,0.04); border:1px solid var(--glass-border); border-radius:999px; padding:3px; }
+  .metric-toggle .tab{ padding:6px 14px; font-size:12.5px; margin:0; border-radius:999px; }
+  .metric-toggle .tab.active{ background:linear-gradient(135deg, var(--cyan), var(--violet)); color:#0a0d18; }
+  @media (max-width:700px){ .detail-actions{ flex-direction:column; align-items:stretch; } }
+
+  .analysis-pie-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-bottom:22px; }
+  @media (max-width:820px){ .analysis-pie-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- Admin ---------- */
+  .gate{ max-width:400px; margin:80px auto; padding:40px 34px; text-align:center; }
+  .gate .brand-mark{ margin:0 auto 22px; }
+  .gate h2{ margin:0 0 8px; font-size:22px; }
+  .gate p{ color:var(--ink-dim); font-size:13.5px; margin:0 0 24px; }
+  .field{ margin-bottom:16px; text-align:left; }
+  .field label{ display:block; font-size:12px; color:var(--ink-dim); margin-bottom:6px; font-weight:600; }
+  .field input, .field select{
+    width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.05);
+    color:var(--ink); font-size:14.5px; font-family:'JetBrains Mono'; outline:none; transition:border-color .2s ease;
+  }
+  .field input:focus, .field select:focus{ border-color:var(--cyan); }
+  .field select{ font-family:'Inter'; }
+  .error-msg{ color:var(--red); font-size:13px; margin-top:10px; min-height:16px;}
+
+  .admin-grid{ display:grid; grid-template-columns:260px 1fr; gap:20px; align-items:start; }
+  @media (max-width:820px){ .admin-grid{ grid-template-columns:1fr; } }
+  .admin-sidebar{ padding:16px; position:sticky; top:20px; max-height:calc(100vh - 40px); overflow:auto;}
+  .admin-side-section{ margin-bottom:18px; }
+  .admin-side-section h4{ font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-faint); margin:0 0 10px; }
+  .room-list-item{ padding:9px 12px; border-radius:10px; font-size:13.5px; cursor:pointer; display:flex; justify-content:space-between; color:var(--ink-dim); transition:all .15s ease;}
+  .room-list-item:hover{ background:var(--glass); color:var(--ink);}
+  .room-list-item.active{ background:linear-gradient(135deg, rgba(45,212,240,0.18), rgba(166,121,255,0.18)); color:var(--ink); font-weight:600;}
+
+  .admin-panel{ padding:22px; }
+  .admin-panel h3{ margin:0 0 4px; font-size:19px; }
+  .admin-panel .sub{ color:var(--ink-dim); font-size:13px; margin-bottom:20px;}
+
+  .inline-form{ display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; padding:16px; border-radius:14px; background:rgba(255,255,255,0.035); border:1px solid var(--glass-border); margin-bottom:22px;}
+  .inline-form .field{ margin-bottom:0; flex:1; min-width:110px; }
+
+  .admin-history-row{ display:grid; grid-template-columns:100px repeat(4, 1fr) auto; gap:10px; align-items:center; padding:10px 12px; border-radius:12px; transition:background .15s ease;}
+  .admin-history-row:hover{ background:rgba(255,255,255,0.035); }
+  .admin-history-row input{ width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.04); color:var(--ink); font-family:'JetBrains Mono'; font-size:13px;}
+  .admin-history-head{ display:grid; grid-template-columns:100px repeat(4, 1fr) auto; gap:10px; padding:0 12px 8px; font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint);}
+
+  .toast{
+    position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px); opacity:0; pointer-events:none;
+    background:var(--glass-strong); border:1px solid var(--glass-border); backdrop-filter:blur(20px);
+    padding:12px 22px; border-radius:999px; font-size:13.5px; font-weight:600; z-index:50; transition:all .3s cubic-bezier(.2,.9,.3,1.3);
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto; }
+  .toast.success{ border-color:rgba(78,230,168,0.5); }
+  .toast.error{ border-color:rgba(255,107,107,0.5); }
+  .toast.warning{ border-color:rgba(255,200,87,0.55); color:#ffe0a3; }
+
+  .sync-badge{ font-size:11.5px; color:var(--green); font-weight:600; display:inline-flex; align-items:center; gap:4px; padding:6px 10px; border-radius:999px; background:rgba(78,230,168,0.1); }
+  .sync-badge.pending{ color:var(--amber); background:rgba(255,200,87,0.12); animation:pulse-badge 1.6s ease-in-out infinite; }
+  @keyframes pulse-badge{ 0%,100%{ opacity:1; } 50%{ opacity:0.55; } }
+
+  .footer-note{ text-align:center; color:var(--ink-faint); font-size:12px; margin-top:50px; }
+
+  .rate-badge{ display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink-dim); background:rgba(255,255,255,0.05); padding:6px 12px; border-radius:999px; border:1px solid var(--glass-border);}
+
+  .month-summary{
+    margin-top:26px; padding:26px 30px; display:flex; align-items:center; justify-content:space-around; flex-wrap:wrap; gap:20px;
+    background:linear-gradient(120deg, rgba(45,212,240,0.09), rgba(166,121,255,0.09), rgba(255,111,165,0.09));
+  }
+  .summary-item{ text-align:center; }
+  .summary-item .v{ font-family:'Space Grotesk', sans-serif; font-size:28px; font-weight:700;
+    background:linear-gradient(120deg, #fff, var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .summary-item .l{ font-size:11.5px; color:var(--ink-dim); margin-top:4px; text-transform:uppercase; letter-spacing:0.05em;}
+  .summary-divider{ width:1px; height:44px; background:var(--glass-border); }
+  @media (max-width:640px){ .summary-divider{ display:none; } .month-summary{ padding:22px 20px; } }
+
+  .loading-spin{ width:26px;height:26px;border-radius:50%; border:3px solid rgba(255,255,255,0.15); border-top-color:var(--cyan); animation:spin 0.8s linear infinite; margin:40px auto;}
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-thumb{ background:rgba(255,255,255,0.15); border-radius:8px; }
+
+  /* ---------- entrance animation ---------- */
+  @keyframes riseIn{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
+  .room-card, .history-card{ animation:riseIn .5s cubic-bezier(.2,.7,.3,1) both; }
+  @media (prefers-reduced-motion: reduce){ .room-card, .history-card{ animation:none; } }
+
+  /* ---------- Scroll-reveal (structural panels) ---------- */
+  .reveal{ opacity:0; margin-top:22px; transition: opacity .7s ease, margin-top .7s cubic-bezier(.2,.7,.3,1); }
+  .reveal.in-view{ opacity:1; margin-top:0; }
+  @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1 !important; margin-top:0 !important; transition:none !important; } }
+
+  /* mobile-friendly labels inside admin history rows (hidden on desktop) */
+  .cell-label{ display:none; }
+  .cell-static{
+    padding:8px 10px; border-radius:8px; background:rgba(255,255,255,0.03); border:1px solid transparent;
+    font-family:'JetBrains Mono'; font-size:13px; color:var(--ink);
+  }
+  .cell-action{ display:flex; justify-content:flex-end; }
+
+  /* =========================================================
+     RESPONSIVE — tablet
+     ========================================================= */
+  @media (max-width:820px){
+    .admin-grid{ grid-template-columns:1fr; }
+    .admin-sidebar{ position:static; max-height:none; }
+  }
+
+  /* =========================================================
+     RESPONSIVE — phones (general)
+     ========================================================= */
+  @media (max-width:700px){
+    #app{ padding:20px 14px 70px; padding-left:max(14px, env(safe-area-inset-left)); padding-right:max(14px, env(safe-area-inset-right)); }
+    .topbar{ margin-bottom:24px; }
+    .topbar-actions{ flex-wrap:wrap; justify-content:flex-end; row-gap:8px; }
+    .brand-text .t{ font-size:17px; }
+    .sync-badge{ font-size:10.5px; padding:5px 9px; order:10; }
+    .btn{ padding:9px 15px; font-size:13.5px; }
+
+    .hero{ margin-bottom:26px; }
+    .hero p{ font-size:14px; }
+
+    .tabs{ width:100%; overflow-x:auto; flex-wrap:nowrap; -webkit-overflow-scrolling:touch; padding-bottom:4px; }
+    .tabs::-webkit-scrollbar{ height:0; }
+    .tab{ flex-shrink:0; }
+    .rate-badge{ font-size:11.5px; padding:6px 10px; }
+
+    .room-grid{ grid-template-columns:repeat(2, 1fr); gap:11px; }
+    .room-card{ padding:15px 13px; }
+    .room-label{ font-size:16px; }
+    .room-tenant{ font-size:11px; }
+    .gauge-wrap svg{ width:72px; height:72px; }
+    .room-foot .bill{ font-size:14px; }
+
+    .month-summary{ flex-direction:column; gap:16px; padding:22px 18px; }
+    .summary-divider{ display:none; }
+    .summary-item .v{ font-size:24px; }
+
+    .detail-header{ flex-direction:column; align-items:flex-start; padding:20px 18px; gap:16px; }
+    .detail-icon{ width:46px; height:46px; font-size:16px; }
+    .detail-title h2{ font-size:20px; }
+    .stat-row{ width:100%; justify-content:space-between; gap:12px; }
+    .stat .v{ font-size:17px; }
+
+    .history-card{ grid-template-columns:1fr; text-align:left; padding:16px 16px; gap:10px; }
+    .hc-right{ justify-content:space-between; width:100%; }
+    .hc-readings{ gap:16px; }
+
+    .gate{ margin:40px auto; padding:30px 22px; max-width:none; }
+
+    .inline-form{ padding:14px; gap:12px; }
+    .inline-form .field{ min-width:100%; }
+    .inline-form button{ width:100%; justify-content:center; margin-top:4px; }
+
+    /* Admin history table -> stacked cards */
+    .admin-history-head{ display:none; }
+    .admin-history-row{
+      grid-template-columns:1fr 1fr; row-gap:12px; column-gap:10px;
+      padding:14px; border:1px solid var(--glass-border); border-radius:14px; margin-bottom:10px; background:rgba(255,255,255,0.03);
+    }
+    .cell-label{ display:block; font-size:9.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin-bottom:4px; }
+    .cell{ display:flex; flex-direction:column; }
+    .cell-action{ grid-column:1 / -1; }
+    .cell-action button{ width:100%; justify-content:center; }
+    .admin-history-row input, .cell-static{ width:100%; }
+  }
+
+  /* =========================================================
+     RESPONSIVE — small phones
+     ========================================================= */
+  @media (max-width:380px){
+    .room-grid{ grid-template-columns:1fr 1fr; gap:9px; }
+    .hero h1{ font-size:26px; }
+    .brand-text .k{ display:none; }
+  }
+
+  /* comfortable tap targets on touch devices */
+  @media (hover:none){
+    .btn{ padding:11px 18px; }
+    .room-card:active{ transform:scale(0.98); }
+    .tab{ padding:10px 16px; }
+  }
+</style>
+</head>
+<body>
+<div id="boot-loader" class="boot-loader">
+  <div class="boot-logo"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="34" height="34"><path d="M13 2L4 14H11L10 22L20 9H13L13 2Z" fill="#0a0d18"/></svg></div>
+  <div class="boot-title">LITON HOUSE</div>
+  <div class="boot-sub">ELECTRICITY BILL BY SHUVRO DEB</div>
+  <div class="boot-spinner"></div>
+</div>
+<canvas id="bg3d"></canvas>
+<div class="parallax-layer" data-speed="0.05"><div class="bg-orb orb1"></div></div>
+<div class="parallax-layer" data-speed="0.09"><div class="bg-orb orb2"></div></div>
+<div class="parallax-layer" data-speed="0.07"><div class="bg-orb orb3"></div></div>
+<div class="float-layer" id="float-layer"></div>
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ EMBEDDED SEED DATA (used only the very first time, to populate Firebase) ============ */
+const SEED_DATA = {
+  "rate": 13,
+  "buildings": [
+    {
+      "id": "main",
+      "name": "Main House",
+      "rooms": [
+        {
+          "id": "main-r01",
+          "roomNumber": 1,
+          "label": "Room 01",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 13843,
+              "curr": 13882,
+              "unit": 39,
+              "bill": 507
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 13882,
+              "curr": 13900,
+              "unit": 18,
+              "bill": 234
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 13900,
+              "curr": 13904,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "JANUARY",
+              "prev": 13904,
+              "curr": 13906,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 13906,
+              "curr": 13908,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "MARCH",
+              "prev": 13908,
+              "curr": 13910,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "APRIL",
+              "prev": 13910,
+              "curr": 13923,
+              "unit": 13,
+              "bill": 169
+            },
+            {
+              "month": "MAY",
+              "prev": 13923,
+              "curr": 13938,
+              "unit": 15,
+              "bill": 195
+            },
+            {
+              "month": "JUNE",
+              "prev": 13938,
+              "curr": 13966,
+              "unit": 28,
+              "bill": 364
+            },
+            {
+              "month": "JULY",
+              "prev": 13966,
+              "curr": 13984,
+              "unit": 18,
+              "bill": 234
+            },
+            {
+              "month": "AUGUST",
+              "prev": 13984,
+              "curr": 13993,
+              "unit": 9,
+              "bill": 117
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 13993,
+              "curr": 14019,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 14019,
+              "curr": 14047,
+              "unit": 28,
+              "bill": 364
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 14047,
+              "curr": 14074,
+              "unit": 27,
+              "bill": 351
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 14074,
+              "curr": 14091,
+              "unit": 17,
+              "bill": 221
+            },
+            {
+              "month": "JANUARY",
+              "prev": 14091,
+              "curr": 14092,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 14092,
+              "curr": 14092,
+              "unit": 0,
+              "bill": 0
+            },
+            {
+              "month": "MARCH",
+              "prev": 14092,
+              "curr": 14097,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "APRIL",
+              "prev": 14097,
+              "curr": 14107,
+              "unit": 10,
+              "bill": 130
+            },
+            {
+              "month": "MAY",
+              "prev": 14107,
+              "curr": 14118,
+              "unit": 11,
+              "bill": 143
+            },
+            {
+              "month": "JUNE",
+              "prev": 14118,
+              "curr": 14143,
+              "unit": 25,
+              "bill": 325
+            },
+            {
+              "month": "JULY",
+              "prev": 14143,
+              "curr": 14179,
+              "unit": 36,
+              "bill": 468
+            },
+            {
+              "month": "AUGUST",
+              "prev": 14179,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r02",
+          "roomNumber": 2,
+          "label": "Room 02",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 18507,
+              "curr": 18533,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 18533,
+              "curr": 18569,
+              "unit": 36,
+              "bill": 468
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 18569,
+              "curr": 18598,
+              "unit": 29,
+              "bill": 377
+            },
+            {
+              "month": "JANUARY",
+              "prev": 18598,
+              "curr": 18621,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 18621,
+              "curr": 18640,
+              "unit": 19,
+              "bill": 247
+            },
+            {
+              "month": "MARCH",
+              "prev": 18640,
+              "curr": 18658,
+              "unit": 18,
+              "bill": 234
+            },
+            {
+              "month": "APRIL",
+              "prev": 18658,
+              "curr": 18689,
+              "unit": 31,
+              "bill": 403
+            },
+            {
+              "month": "MAY",
+              "prev": 18689,
+              "curr": 18722,
+              "unit": 33,
+              "bill": 429
+            },
+            {
+              "month": "JUNE",
+              "prev": 18722,
+              "curr": 18763,
+              "unit": 41,
+              "bill": 533
+            },
+            {
+              "month": "JULY",
+              "prev": 18763,
+              "curr": 18819,
+              "unit": 56,
+              "bill": 728
+            },
+            {
+              "month": "AUGUST",
+              "prev": 18819,
+              "curr": 18871,
+              "unit": 52,
+              "bill": 676
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 18871,
+              "curr": 18931,
+              "unit": 60,
+              "bill": 780
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 18931,
+              "curr": 18999,
+              "unit": 68,
+              "bill": 884
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 18999,
+              "curr": 19055,
+              "unit": 56,
+              "bill": 728
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 19055,
+              "curr": 19081,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "JANUARY",
+              "prev": 19081,
+              "curr": 19101,
+              "unit": 20,
+              "bill": 260
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 19101,
+              "curr": 19122,
+              "unit": 21,
+              "bill": 273
+            },
+            {
+              "month": "MARCH",
+              "prev": 19122,
+              "curr": 19138,
+              "unit": 16,
+              "bill": 208
+            },
+            {
+              "month": "APRIL",
+              "prev": 19138,
+              "curr": 19168,
+              "unit": 30,
+              "bill": 390
+            },
+            {
+              "month": "MAY",
+              "prev": 19168,
+              "curr": 19193,
+              "unit": 25,
+              "bill": 325
+            },
+            {
+              "month": "JUNE",
+              "prev": 19193,
+              "curr": 19219,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "JULY",
+              "prev": 19219,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r03",
+          "roomNumber": 3,
+          "label": "Room 03",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 148,
+              "curr": 188,
+              "unit": 40,
+              "bill": 520
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 188,
+              "curr": 211,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 211,
+              "curr": 234,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "JANUARY",
+              "prev": 234,
+              "curr": 262,
+              "unit": 28,
+              "bill": 364
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 262,
+              "curr": 282,
+              "unit": 20,
+              "bill": 260
+            },
+            {
+              "month": "MARCH",
+              "prev": 282,
+              "curr": 301,
+              "unit": 19,
+              "bill": 247
+            },
+            {
+              "month": "APRIL",
+              "prev": 301,
+              "curr": 329,
+              "unit": 28,
+              "bill": 364
+            },
+            {
+              "month": "MAY",
+              "prev": 329,
+              "curr": 356,
+              "unit": 27,
+              "bill": 351
+            },
+            {
+              "month": "JUNE",
+              "prev": 356,
+              "curr": 399,
+              "unit": 43,
+              "bill": 559
+            },
+            {
+              "month": "JULY",
+              "prev": 399,
+              "curr": 450,
+              "unit": 51,
+              "bill": 663
+            },
+            {
+              "month": "AUGUST",
+              "prev": 450,
+              "curr": 488,
+              "unit": 38,
+              "bill": 494
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 488,
+              "curr": 530,
+              "unit": 42,
+              "bill": 546
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 530,
+              "curr": 573,
+              "unit": 43,
+              "bill": 559
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 573,
+              "curr": 618,
+              "unit": 45,
+              "bill": 585
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 618,
+              "curr": 653,
+              "unit": 35,
+              "bill": 455
+            },
+            {
+              "month": "JANUARY",
+              "prev": 653,
+              "curr": 673,
+              "unit": 20,
+              "bill": 260
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 673,
+              "curr": 695,
+              "unit": 22,
+              "bill": 286
+            },
+            {
+              "month": "MARCH",
+              "prev": 695,
+              "curr": 721,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "APRIL",
+              "prev": 721,
+              "curr": 748,
+              "unit": 27,
+              "bill": 351
+            },
+            {
+              "month": "MAY",
+              "prev": 748,
+              "curr": 789,
+              "unit": 41,
+              "bill": 533
+            },
+            {
+              "month": "JUNE",
+              "prev": 789,
+              "curr": 854,
+              "unit": 65,
+              "bill": 845
+            },
+            {
+              "month": "JULY",
+              "prev": 854,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r04",
+          "roomNumber": 4,
+          "label": "Room 04",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 12266,
+              "curr": 12295,
+              "unit": 29,
+              "bill": 377
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 12295,
+              "curr": 12315,
+              "unit": 20,
+              "bill": 260
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 12315,
+              "curr": 12316,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "JANUARY",
+              "prev": 12316,
+              "curr": 12319,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 12319,
+              "curr": 12325,
+              "unit": 6,
+              "bill": 78
+            },
+            {
+              "month": "MARCH",
+              "prev": 12325,
+              "curr": 12325,
+              "unit": 0,
+              "bill": 0
+            },
+            {
+              "month": "APRIL",
+              "prev": 12325,
+              "curr": 12412,
+              "unit": 87,
+              "bill": 1131
+            },
+            {
+              "month": "MAY",
+              "prev": 12412,
+              "curr": 12499,
+              "unit": 87,
+              "bill": 1131
+            },
+            {
+              "month": "JUNE",
+              "prev": 12499,
+              "curr": 12599,
+              "unit": 100,
+              "bill": 1300
+            },
+            {
+              "month": "JULY",
+              "prev": 12599,
+              "curr": 12691,
+              "unit": 92,
+              "bill": 1196
+            },
+            {
+              "month": "AUGUST",
+              "prev": 12691,
+              "curr": 12793,
+              "unit": 102,
+              "bill": 1326
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 12793,
+              "curr": 12893,
+              "unit": 100,
+              "bill": 1300
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 12893,
+              "curr": 12996,
+              "unit": 103,
+              "bill": 1339
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 12996,
+              "curr": 13080,
+              "unit": 84,
+              "bill": 1092
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 13080,
+              "curr": 13126,
+              "unit": 46,
+              "bill": 598
+            },
+            {
+              "month": "JANUARY",
+              "prev": 13126,
+              "curr": 13161,
+              "unit": 35,
+              "bill": 455
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 13161,
+              "curr": 13196,
+              "unit": 35,
+              "bill": 455
+            },
+            {
+              "month": "MARCH",
+              "prev": 13196,
+              "curr": 13235,
+              "unit": 39,
+              "bill": 507
+            },
+            {
+              "month": "APRIL",
+              "prev": 13235,
+              "curr": 13284,
+              "unit": 49,
+              "bill": 637
+            },
+            {
+              "month": "MAY",
+              "prev": 13284,
+              "curr": 13355,
+              "unit": 71,
+              "bill": 923
+            },
+            {
+              "month": "JUNE",
+              "prev": 13355,
+              "curr": 13436,
+              "unit": 81,
+              "bill": 1053
+            },
+            {
+              "month": "JULY",
+              "prev": 13436,
+              "curr": 13506,
+              "unit": 70,
+              "bill": 910
+            },
+            {
+              "month": "AUGUST",
+              "prev": 13506,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r05",
+          "roomNumber": 5,
+          "label": "Room 05",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 12781,
+              "curr": 12787,
+              "unit": 6,
+              "bill": 78
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 12787,
+              "curr": 12801,
+              "unit": 14,
+              "bill": 182
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 12801,
+              "curr": 12808,
+              "unit": 7,
+              "bill": 91
+            },
+            {
+              "month": "JANUARY",
+              "prev": 12808,
+              "curr": 12810,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 12810,
+              "curr": 12822,
+              "unit": 12,
+              "bill": 156
+            },
+            {
+              "month": "MARCH",
+              "prev": 12822,
+              "curr": 12829,
+              "unit": 7,
+              "bill": 91
+            },
+            {
+              "month": "APRIL",
+              "prev": 12829,
+              "curr": 12840,
+              "unit": 11,
+              "bill": 143
+            },
+            {
+              "month": "MAY",
+              "prev": 12840,
+              "curr": 12859,
+              "unit": 19,
+              "bill": 247
+            },
+            {
+              "month": "JUNE",
+              "prev": 11,
+              "curr": 43,
+              "unit": 32,
+              "bill": 416
+            },
+            {
+              "month": "JULY",
+              "prev": 43,
+              "curr": 59,
+              "unit": 16,
+              "bill": 208
+            },
+            {
+              "month": "AUGUST",
+              "prev": 59,
+              "curr": 85,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 85,
+              "curr": 110,
+              "unit": 25,
+              "bill": 325
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 110,
+              "curr": 135,
+              "unit": 25,
+              "bill": 325
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 135,
+              "curr": 161,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 161,
+              "curr": 177,
+              "unit": 16,
+              "bill": 208
+            },
+            {
+              "month": "JANUARY",
+              "prev": 177,
+              "curr": 199,
+              "unit": 22,
+              "bill": 286
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 199,
+              "curr": 221,
+              "unit": 22,
+              "bill": 286
+            },
+            {
+              "month": "MARCH",
+              "prev": 221,
+              "curr": 244,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "APRIL",
+              "prev": 244,
+              "curr": 266,
+              "unit": 22,
+              "bill": 286
+            },
+            {
+              "month": "MAY",
+              "prev": 266,
+              "curr": 308,
+              "unit": 42,
+              "bill": 546
+            },
+            {
+              "month": "JUNE",
+              "prev": 308,
+              "curr": 343,
+              "unit": 35,
+              "bill": 455
+            },
+            {
+              "month": "JULY",
+              "prev": 343,
+              "curr": 384,
+              "unit": 41,
+              "bill": 533
+            },
+            {
+              "month": "AUGUST",
+              "prev": 384,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r06",
+          "roomNumber": 6,
+          "label": "Room 06",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 6586,
+              "curr": 6647,
+              "unit": 61,
+              "bill": 793
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 6647,
+              "curr": 6685,
+              "unit": 38,
+              "bill": 494
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 6685,
+              "curr": 6709,
+              "unit": 24,
+              "bill": 312
+            },
+            {
+              "month": "JANUARY",
+              "prev": 6709,
+              "curr": 6726,
+              "unit": 17,
+              "bill": 221
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 6726,
+              "curr": 6741,
+              "unit": 15,
+              "bill": 195
+            },
+            {
+              "month": "MARCH",
+              "prev": 6741,
+              "curr": 6755,
+              "unit": 14,
+              "bill": 182
+            },
+            {
+              "month": "APRIL",
+              "prev": 6755,
+              "curr": 6766,
+              "unit": 11,
+              "bill": 143
+            },
+            {
+              "month": "MAY",
+              "prev": 6766,
+              "curr": 6803,
+              "unit": 37,
+              "bill": 481
+            },
+            {
+              "month": "JUNE",
+              "prev": 6803,
+              "curr": 6848,
+              "unit": 45,
+              "bill": 585
+            },
+            {
+              "month": "JULY",
+              "prev": 6848,
+              "curr": 6872,
+              "unit": 24,
+              "bill": 312
+            },
+            {
+              "month": "AUGUST",
+              "prev": 6872,
+              "curr": 6899,
+              "unit": 27,
+              "bill": 351
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 6899,
+              "curr": 6935,
+              "unit": 36,
+              "bill": 468
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 6935,
+              "curr": 6969,
+              "unit": 34,
+              "bill": 442
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 6969,
+              "curr": 7019,
+              "unit": 50,
+              "bill": 650
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 7019,
+              "curr": 7026,
+              "unit": 7,
+              "bill": 91
+            },
+            {
+              "month": "JANUARY",
+              "prev": 7026,
+              "curr": 7048,
+              "unit": 22,
+              "bill": 286
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 7048,
+              "curr": 7079,
+              "unit": 31,
+              "bill": 403
+            },
+            {
+              "month": "MARCH",
+              "prev": 7079,
+              "curr": 7095,
+              "unit": 16,
+              "bill": 208
+            },
+            {
+              "month": "APRIL",
+              "prev": 7095,
+              "curr": 7099,
+              "unit": 4,
+              "bill": 170
+            },
+            {
+              "month": "MAY",
+              "prev": 7099,
+              "curr": 7112,
+              "unit": 13,
+              "bill": 169
+            },
+            {
+              "month": "JUNE",
+              "prev": 7112,
+              "curr": 7132,
+              "unit": 20,
+              "bill": 260
+            },
+            {
+              "month": "JULY",
+              "prev": 7132,
+              "curr": 7152,
+              "unit": 20,
+              "bill": 260
+            },
+            {
+              "month": "AUGUST",
+              "prev": 7152,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r07",
+          "roomNumber": 7,
+          "label": "Room 07",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 18933,
+              "curr": 18956,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 18956,
+              "curr": 18979,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 18979,
+              "curr": 18991,
+              "unit": 12,
+              "bill": 156
+            },
+            {
+              "month": "JANUARY",
+              "prev": 18991,
+              "curr": 18994,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 18994,
+              "curr": 18997,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "MARCH",
+              "prev": 18997,
+              "curr": 19001,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "APRIL",
+              "prev": 19001,
+              "curr": 19012,
+              "unit": 11,
+              "bill": 143
+            },
+            {
+              "month": "MAY",
+              "prev": 19012,
+              "curr": 19028,
+              "unit": 16,
+              "bill": 208
+            },
+            {
+              "month": "JUNE",
+              "prev": 19028,
+              "curr": 19045,
+              "unit": 17,
+              "bill": 221
+            },
+            {
+              "month": "JULY",
+              "prev": 19045,
+              "curr": 19064,
+              "unit": 19,
+              "bill": 247
+            },
+            {
+              "month": "AUGUST",
+              "prev": 19064,
+              "curr": 19084,
+              "unit": 20,
+              "bill": 260
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 19084,
+              "curr": 19106,
+              "unit": 22,
+              "bill": 286
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 19106,
+              "curr": 19132,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 19132,
+              "curr": 19148,
+              "unit": 16,
+              "bill": 208
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 19148,
+              "curr": 19153,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "JANUARY",
+              "prev": 19153,
+              "curr": 19155,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 19155,
+              "curr": 19158,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "MARCH",
+              "prev": 19158,
+              "curr": 19162,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "APRIL",
+              "prev": 19162,
+              "curr": 19170,
+              "unit": 8,
+              "bill": 104
+            },
+            {
+              "month": "MAY",
+              "prev": 19170,
+              "curr": 19183,
+              "unit": 13,
+              "bill": 169
+            },
+            {
+              "month": "JUNE",
+              "prev": 19183,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r08",
+          "roomNumber": 8,
+          "label": "Room 08",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 8729,
+              "curr": 8766,
+              "unit": 37,
+              "bill": 481
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 8766,
+              "curr": 8837,
+              "unit": 71,
+              "bill": 923
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 8837,
+              "curr": 8870,
+              "unit": 33,
+              "bill": 429
+            },
+            {
+              "month": "JANUARY",
+              "prev": 8870,
+              "curr": 8895,
+              "unit": 25,
+              "bill": 325
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 8895,
+              "curr": 8915,
+              "unit": 20,
+              "bill": 260
+            },
+            {
+              "month": "MARCH",
+              "prev": 8915,
+              "curr": 8939,
+              "unit": 24,
+              "bill": 312
+            },
+            {
+              "month": "APRIL",
+              "prev": 8939,
+              "curr": 8988,
+              "unit": 49,
+              "bill": 637
+            },
+            {
+              "month": "MAY",
+              "prev": 8988,
+              "curr": 9048,
+              "unit": 60,
+              "bill": 780
+            },
+            {
+              "month": "JUNE",
+              "prev": 9048,
+              "curr": 9117,
+              "unit": 69,
+              "bill": 897
+            },
+            {
+              "month": "JULY",
+              "prev": 9117,
+              "curr": 9183,
+              "unit": 66,
+              "bill": 858
+            },
+            {
+              "month": "AUGUST",
+              "prev": 9183,
+              "curr": 9279,
+              "unit": 96,
+              "bill": 1248
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 9279,
+              "curr": 9366,
+              "unit": 87,
+              "bill": 1131
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 9366,
+              "curr": 9463,
+              "unit": 97,
+              "bill": 1261
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 9463,
+              "curr": 9554,
+              "unit": 91,
+              "bill": 1183
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 9554,
+              "curr": 9596,
+              "unit": 42,
+              "bill": 546
+            },
+            {
+              "month": "JANUARY",
+              "prev": 9596,
+              "curr": 9624,
+              "unit": 28,
+              "bill": 364
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 9624,
+              "curr": 9651,
+              "unit": 27,
+              "bill": 351
+            },
+            {
+              "month": "MARCH",
+              "prev": 9651,
+              "curr": 9683,
+              "unit": 32,
+              "bill": 416
+            },
+            {
+              "month": "APRIL",
+              "prev": 9683,
+              "curr": 9742,
+              "unit": 59,
+              "bill": 767
+            },
+            {
+              "month": "MAY",
+              "prev": 9742,
+              "curr": 9818,
+              "unit": 76,
+              "bill": 988
+            },
+            {
+              "month": "JUNE",
+              "prev": 9818,
+              "curr": 9901,
+              "unit": 83,
+              "bill": 1079
+            },
+            {
+              "month": "JULY",
+              "prev": 9901,
+              "curr": 9983,
+              "unit": 82,
+              "bill": 1066
+            },
+            {
+              "month": "AUGUST",
+              "prev": 9983,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r09",
+          "roomNumber": 9,
+          "label": "Room 09",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 6727,
+              "curr": 6746,
+              "unit": 19,
+              "bill": 247
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 6746,
+              "curr": 6800,
+              "unit": 54,
+              "bill": 702
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 6800,
+              "curr": 6830,
+              "unit": 30,
+              "bill": 390
+            },
+            {
+              "month": "JANUARY",
+              "prev": 6830,
+              "curr": 6853,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 6853,
+              "curr": 6874,
+              "unit": 21,
+              "bill": 273
+            },
+            {
+              "month": "MARCH",
+              "prev": 6874,
+              "curr": 6897,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "APRIL",
+              "prev": 6897,
+              "curr": 6940,
+              "unit": 43,
+              "bill": 559
+            },
+            {
+              "month": "MAY",
+              "prev": 6940,
+              "curr": 6988,
+              "unit": 48,
+              "bill": 624
+            },
+            {
+              "month": "JUNE",
+              "prev": 6988,
+              "curr": 7053,
+              "unit": 65,
+              "bill": 845
+            },
+            {
+              "month": "JULY",
+              "prev": 7053,
+              "curr": 7098,
+              "unit": 45,
+              "bill": 585
+            },
+            {
+              "month": "AUGUST",
+              "prev": 7098,
+              "curr": 7158,
+              "unit": 60,
+              "bill": 780
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 7158,
+              "curr": 7220,
+              "unit": 62,
+              "bill": 806
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 7220,
+              "curr": 7292,
+              "unit": 72,
+              "bill": 936
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 7292,
+              "curr": 7351,
+              "unit": 59,
+              "bill": 767
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 7351,
+              "curr": 7384,
+              "unit": 33,
+              "bill": 429
+            },
+            {
+              "month": "JANUARY",
+              "prev": 7384,
+              "curr": 7411,
+              "unit": 27,
+              "bill": 351
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 7411,
+              "curr": 7436,
+              "unit": 25,
+              "bill": 325
+            },
+            {
+              "month": "MARCH",
+              "prev": 7436,
+              "curr": 7464,
+              "unit": 28,
+              "bill": 364
+            },
+            {
+              "month": "APRIL",
+              "prev": 7464,
+              "curr": 7507,
+              "unit": 43,
+              "bill": 559
+            },
+            {
+              "month": "MAY",
+              "prev": 7507,
+              "curr": 7549,
+              "unit": 42,
+              "bill": 546
+            },
+            {
+              "month": "JUNE",
+              "prev": 7549,
+              "curr": 7603,
+              "unit": 54,
+              "bill": 702
+            },
+            {
+              "month": "JULY",
+              "prev": 7603,
+              "curr": 7671,
+              "unit": 68,
+              "bill": 884
+            },
+            {
+              "month": "AUGUST",
+              "prev": 7671,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r10",
+          "roomNumber": 10,
+          "label": "Room 10",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 5407,
+              "curr": 5407,
+              "unit": 0,
+              "bill": 0
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 5407,
+              "curr": 5421,
+              "unit": 14,
+              "bill": 182
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 5421,
+              "curr": 5429,
+              "unit": 8,
+              "bill": 104
+            },
+            {
+              "month": "JANUARY",
+              "prev": 5429,
+              "curr": 5432,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 5432,
+              "curr": 5442,
+              "unit": 10,
+              "bill": 130
+            },
+            {
+              "month": "MARCH",
+              "prev": 5442,
+              "curr": 5454,
+              "unit": 12,
+              "bill": 156
+            },
+            {
+              "month": "APRIL",
+              "prev": 5454,
+              "curr": 5465,
+              "unit": 11,
+              "bill": 143
+            },
+            {
+              "month": "MAY",
+              "prev": 5465,
+              "curr": 5493,
+              "unit": 28,
+              "bill": 364
+            },
+            {
+              "month": "JUNE",
+              "prev": 5493,
+              "curr": 5544,
+              "unit": 51,
+              "bill": 663
+            },
+            {
+              "month": "JULY",
+              "prev": 37,
+              "curr": 56,
+              "unit": 19,
+              "bill": 247
+            },
+            {
+              "month": "AUGUST",
+              "prev": 56,
+              "curr": 85,
+              "unit": 29,
+              "bill": 377
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 85,
+              "curr": 122,
+              "unit": 37,
+              "bill": 481
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 122,
+              "curr": 158,
+              "unit": 36,
+              "bill": 468
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 158,
+              "curr": 187,
+              "unit": 29,
+              "bill": 377
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 187,
+              "curr": 206,
+              "unit": 19,
+              "bill": 247
+            },
+            {
+              "month": "JANUARY",
+              "prev": 206,
+              "curr": 207,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 207,
+              "curr": 208,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "MARCH",
+              "prev": 208,
+              "curr": 209,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "APRIL",
+              "prev": 209,
+              "curr": 209,
+              "unit": 0,
+              "bill": 0
+            },
+            {
+              "month": "MAY",
+              "prev": 209,
+              "curr": 210,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "JUNE",
+              "prev": 210,
+              "curr": 275,
+              "unit": 65,
+              "bill": 845
+            },
+            {
+              "month": "JULY",
+              "prev": 275,
+              "curr": 343,
+              "unit": 68,
+              "bill": 884
+            },
+            {
+              "month": "AUGUST",
+              "prev": 343,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r11",
+          "roomNumber": 11,
+          "label": "Room 11",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 56241,
+              "curr": 56276,
+              "unit": 35,
+              "bill": 455
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 56276,
+              "curr": 56355,
+              "unit": 79,
+              "bill": 1027
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 56355,
+              "curr": 56406,
+              "unit": 51,
+              "bill": 663
+            },
+            {
+              "month": "JANUARY",
+              "prev": 56406,
+              "curr": 56457,
+              "unit": 51,
+              "bill": 663
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 56457,
+              "curr": 56497,
+              "unit": 40,
+              "bill": 520
+            },
+            {
+              "month": "MARCH",
+              "prev": 56497,
+              "curr": 56542,
+              "unit": 45,
+              "bill": 585
+            },
+            {
+              "month": "APRIL",
+              "prev": 56542,
+              "curr": 56615,
+              "unit": 73,
+              "bill": 949
+            },
+            {
+              "month": "MAY",
+              "prev": 56615,
+              "curr": 56693,
+              "unit": 78,
+              "bill": 1014
+            },
+            {
+              "month": "JUNE",
+              "prev": 56693,
+              "curr": 56777,
+              "unit": 84,
+              "bill": 1092
+            },
+            {
+              "month": "JULY",
+              "prev": 56777,
+              "curr": 56852,
+              "unit": 75,
+              "bill": 975
+            },
+            {
+              "month": "AUGUST",
+              "prev": 56852,
+              "curr": 56916,
+              "unit": 64,
+              "bill": 832
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 56916,
+              "curr": 56963,
+              "unit": 47,
+              "bill": 611
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 56963,
+              "curr": 57022,
+              "unit": 59,
+              "bill": 767
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 57022,
+              "curr": 57072,
+              "unit": 50,
+              "bill": 650
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 57072,
+              "curr": 57082,
+              "unit": 10,
+              "bill": 130
+            },
+            {
+              "month": "JANUARY",
+              "prev": 57082,
+              "curr": 57085,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 57085,
+              "curr": 57088,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "MARCH",
+              "prev": 57088,
+              "curr": 57116,
+              "unit": 28,
+              "bill": 364
+            },
+            {
+              "month": "APRIL",
+              "prev": 57116,
+              "curr": 57169,
+              "unit": 53,
+              "bill": 689
+            },
+            {
+              "month": "MAY",
+              "prev": 57169,
+              "curr": 57217,
+              "unit": 48,
+              "bill": 624
+            },
+            {
+              "month": "JUNE",
+              "prev": 57217,
+              "curr": 57293,
+              "unit": 76,
+              "bill": 988
+            },
+            {
+              "month": "JULY",
+              "prev": 57293,
+              "curr": 57351,
+              "unit": 58,
+              "bill": 754
+            },
+            {
+              "month": "AUGUST",
+              "prev": 57351,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r12",
+          "roomNumber": 12,
+          "label": "Room 12",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 8719,
+              "curr": 8759,
+              "unit": 40,
+              "bill": 520
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 8759,
+              "curr": 8783,
+              "unit": 24,
+              "bill": 312
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 8783,
+              "curr": 8792,
+              "unit": 9,
+              "bill": 117
+            },
+            {
+              "month": "JANUARY",
+              "prev": 8792,
+              "curr": 8799,
+              "unit": 7,
+              "bill": 91
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 8799,
+              "curr": 8804,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "MARCH",
+              "prev": 8804,
+              "curr": 8812,
+              "unit": 8,
+              "bill": 104
+            },
+            {
+              "month": "APRIL",
+              "prev": 8812,
+              "curr": 8824,
+              "unit": 12,
+              "bill": 156
+            },
+            {
+              "month": "MAY",
+              "prev": 8824,
+              "curr": 8849,
+              "unit": 25,
+              "bill": 325
+            },
+            {
+              "month": "JUNE",
+              "prev": 8849,
+              "curr": 8883,
+              "unit": 34,
+              "bill": 442
+            },
+            {
+              "month": "JULY",
+              "prev": 8883,
+              "curr": 8904,
+              "unit": 21,
+              "bill": 273
+            },
+            {
+              "month": "AUGUST",
+              "prev": 8904,
+              "curr": 8933,
+              "unit": 29,
+              "bill": 377
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 8933,
+              "curr": 8962,
+              "unit": 29,
+              "bill": 377
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 8,
+              "curr": 45,
+              "unit": 37,
+              "bill": 481
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 45,
+              "curr": 77,
+              "unit": 32,
+              "bill": 416
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 77,
+              "curr": 89,
+              "unit": 12,
+              "bill": 156
+            },
+            {
+              "month": "JANUARY",
+              "prev": 89,
+              "curr": 95,
+              "unit": 6,
+              "bill": 78
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 95,
+              "curr": 101,
+              "unit": 6,
+              "bill": 78
+            },
+            {
+              "month": "MARCH",
+              "prev": 101,
+              "curr": 107,
+              "unit": 6,
+              "bill": 78
+            },
+            {
+              "month": "APRIL",
+              "prev": 107,
+              "curr": 123,
+              "unit": 16,
+              "bill": 208
+            },
+            {
+              "month": "MAY",
+              "prev": 123,
+              "curr": 152,
+              "unit": 29,
+              "bill": 377
+            },
+            {
+              "month": "JUNE",
+              "prev": 152,
+              "curr": 176,
+              "unit": 24,
+              "bill": 312
+            },
+            {
+              "month": "JULY",
+              "prev": 176,
+              "curr": 199,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "AUGUST",
+              "prev": 199,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r13",
+          "roomNumber": 13,
+          "label": "Room 13",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 4075,
+              "curr": 4103,
+              "unit": 28,
+              "bill": 364
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 4103,
+              "curr": 4125,
+              "unit": 22,
+              "bill": 286
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 4125,
+              "curr": 4126,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "JANUARY",
+              "prev": 4126,
+              "curr": 4128,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 4128,
+              "curr": 4129,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "MARCH",
+              "prev": 4129,
+              "curr": 4131,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "APRIL",
+              "prev": 4131,
+              "curr": 4143,
+              "unit": 12,
+              "bill": 156
+            },
+            {
+              "month": "MAY",
+              "prev": 4143,
+              "curr": 4185,
+              "unit": 42,
+              "bill": 546
+            },
+            {
+              "month": "JUNE",
+              "prev": 4185,
+              "curr": 4223,
+              "unit": 38,
+              "bill": 494
+            },
+            {
+              "month": "JULY",
+              "prev": 4223,
+              "curr": 4263,
+              "unit": 40,
+              "bill": 520
+            },
+            {
+              "month": "AUGUST",
+              "prev": 4263,
+              "curr": 4292,
+              "unit": 29,
+              "bill": 377
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 4292,
+              "curr": 4314,
+              "unit": 22,
+              "bill": 286
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 4314,
+              "curr": 4339,
+              "unit": 25,
+              "bill": 325
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 4339,
+              "curr": 4352,
+              "unit": 13,
+              "bill": 169
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 4352,
+              "curr": 4357,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "JANUARY",
+              "prev": 4357,
+              "curr": 4361,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 4361,
+              "curr": 4364,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "MARCH",
+              "prev": 4364,
+              "curr": 4372,
+              "unit": 8,
+              "bill": 104
+            },
+            {
+              "month": "APRIL",
+              "prev": 4372,
+              "curr": 4401,
+              "unit": 29,
+              "bill": 377
+            },
+            {
+              "month": "MAY",
+              "prev": 4401,
+              "curr": 4427,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "JUNE",
+              "prev": 4427,
+              "curr": 4466,
+              "unit": 39,
+              "bill": 507
+            },
+            {
+              "month": "JULY",
+              "prev": 4466,
+              "curr": 4503,
+              "unit": 37,
+              "bill": 481
+            },
+            {
+              "month": "AUGUST",
+              "prev": 4503,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r14",
+          "roomNumber": 14,
+          "label": "Room 14",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 2637,
+              "curr": 2651,
+              "unit": 14,
+              "bill": 182
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 2651,
+              "curr": 2664,
+              "unit": 13,
+              "bill": 169
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 2664,
+              "curr": 2686,
+              "unit": 22,
+              "bill": 286
+            },
+            {
+              "month": "JANUARY",
+              "prev": 2686,
+              "curr": 2691,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 2691,
+              "curr": 2696,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "MARCH",
+              "prev": 2696,
+              "curr": 2706,
+              "unit": 10,
+              "bill": 130
+            },
+            {
+              "month": "APRIL",
+              "prev": 2706,
+              "curr": 2731,
+              "unit": 25,
+              "bill": 325
+            },
+            {
+              "month": "MAY",
+              "prev": 2731,
+              "curr": 2785,
+              "unit": 54,
+              "bill": 702
+            },
+            {
+              "month": "JUNE",
+              "prev": 2785,
+              "curr": 2847,
+              "unit": 62,
+              "bill": 806
+            },
+            {
+              "month": "JULY",
+              "prev": 2847,
+              "curr": 2905,
+              "unit": 58,
+              "bill": 754
+            },
+            {
+              "month": "AUGUST",
+              "prev": 2905,
+              "curr": 2976,
+              "unit": 71,
+              "bill": 923
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 2976,
+              "curr": 3039,
+              "unit": 63,
+              "bill": 819
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 3039,
+              "curr": 3108,
+              "unit": 69,
+              "bill": 897
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 3108,
+              "curr": 3172,
+              "unit": 64,
+              "bill": 832
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 3172,
+              "curr": 3203,
+              "unit": 31,
+              "bill": 403
+            },
+            {
+              "month": "JANUARY",
+              "prev": 3203,
+              "curr": 3217,
+              "unit": 14,
+              "bill": 182
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 3217,
+              "curr": 3232,
+              "unit": 15,
+              "bill": 195
+            },
+            {
+              "month": "MARCH",
+              "prev": 3232,
+              "curr": 3256,
+              "unit": 24,
+              "bill": 312
+            },
+            {
+              "month": "APRIL",
+              "prev": 3256,
+              "curr": 3292,
+              "unit": 36,
+              "bill": 468
+            },
+            {
+              "month": "MAY",
+              "prev": 3292,
+              "curr": 3342,
+              "unit": 50,
+              "bill": 650
+            },
+            {
+              "month": "JUNE",
+              "prev": 3342,
+              "curr": 3389,
+              "unit": 47,
+              "bill": 611
+            },
+            {
+              "month": "JULY",
+              "prev": 3389,
+              "curr": 3442,
+              "unit": 53,
+              "bill": 689
+            },
+            {
+              "month": "AUGUST",
+              "prev": 3442,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r15",
+          "roomNumber": 15,
+          "label": "Room 15",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 1129,
+              "curr": 1132,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 1132,
+              "curr": 1138,
+              "unit": 6,
+              "bill": 78
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 1138,
+              "curr": 1144,
+              "unit": 6,
+              "bill": 78
+            },
+            {
+              "month": "JANUARY",
+              "prev": 1144,
+              "curr": 1147,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 1147,
+              "curr": 1148,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "MARCH",
+              "prev": 1148,
+              "curr": 1153,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "APRIL",
+              "prev": 1153,
+              "curr": 1159,
+              "unit": 6,
+              "bill": 78
+            },
+            {
+              "month": "MAY",
+              "prev": 1159,
+              "curr": 1160,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "JUNE",
+              "prev": 1160,
+              "curr": 1177,
+              "unit": 17,
+              "bill": 221
+            },
+            {
+              "month": "JULY",
+              "prev": 1177,
+              "curr": 1189,
+              "unit": 12,
+              "bill": 156
+            },
+            {
+              "month": "AUGUST",
+              "prev": 1189,
+              "curr": 1197,
+              "unit": 8,
+              "bill": 104
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 1197,
+              "curr": 1206,
+              "unit": 9,
+              "bill": 117
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 1206,
+              "curr": 1206,
+              "unit": 0,
+              "bill": 0
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 1206,
+              "curr": 1210,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 1210,
+              "curr": 1215,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "JANUARY",
+              "prev": 1215,
+              "curr": 1222,
+              "unit": 7,
+              "bill": 91
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 1222,
+              "curr": 1226,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "MARCH",
+              "prev": 1226,
+              "curr": 1230,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "APRIL",
+              "prev": 1230,
+              "curr": 1241,
+              "unit": 11,
+              "bill": 143
+            },
+            {
+              "month": "MAY",
+              "prev": 1241,
+              "curr": 1251,
+              "unit": 10,
+              "bill": 130
+            },
+            {
+              "month": "JUNE",
+              "prev": 1251,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r16",
+          "roomNumber": 16,
+          "label": "Room 16",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 2483,
+              "curr": 2519,
+              "unit": 36,
+              "bill": 468
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 2519,
+              "curr": 2555,
+              "unit": 36,
+              "bill": 468
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 2555,
+              "curr": 2560,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "JANUARY",
+              "prev": 2560,
+              "curr": 2563,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 2563,
+              "curr": 2565,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "MARCH",
+              "prev": 2565,
+              "curr": 2566,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "APRIL",
+              "prev": 2566,
+              "curr": 2571,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "MAY",
+              "prev": 2571,
+              "curr": 2579,
+              "unit": 8,
+              "bill": 104
+            },
+            {
+              "month": "JUNE",
+              "prev": 2579,
+              "curr": 2584,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "JULY",
+              "prev": 2584,
+              "curr": 2591,
+              "unit": 7,
+              "bill": 91
+            },
+            {
+              "month": "AUGUST",
+              "prev": 2591,
+              "curr": 2598,
+              "unit": 7,
+              "bill": 91
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 2598,
+              "curr": 2606,
+              "unit": 8,
+              "bill": 104
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 2606,
+              "curr": 2616,
+              "unit": 10,
+              "bill": 130
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 2616,
+              "curr": 2621,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 2621,
+              "curr": 2624,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "JANUARY",
+              "prev": 2624,
+              "curr": 2625,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 2625,
+              "curr": 2627,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "MARCH",
+              "prev": 2627,
+              "curr": 2628,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "APRIL",
+              "prev": 2628,
+              "curr": 2635,
+              "unit": 7,
+              "bill": 91
+            },
+            {
+              "month": "MAY",
+              "prev": 2635,
+              "curr": 2663,
+              "unit": 28,
+              "bill": 364
+            },
+            {
+              "month": "JUNE",
+              "prev": 2663,
+              "curr": 2678,
+              "unit": 15,
+              "bill": 195
+            },
+            {
+              "month": "JULY",
+              "prev": 2678,
+              "curr": 2700,
+              "unit": 22,
+              "bill": 286
+            },
+            {
+              "month": "AUGUST",
+              "prev": 2700,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r17",
+          "roomNumber": 17,
+          "label": "Room 17",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 2856,
+              "curr": 2914,
+              "unit": 58,
+              "bill": 550
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 2914,
+              "curr": 2988,
+              "unit": 62,
+              "bill": 600
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 2988,
+              "curr": 3022,
+              "unit": 34,
+              "bill": 260
+            },
+            {
+              "month": "JANUARY",
+              "prev": 3022,
+              "curr": 3040,
+              "unit": 18,
+              "bill": 140
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 3040,
+              "curr": 3055,
+              "unit": 15,
+              "bill": 110
+            },
+            {
+              "month": "MARCH",
+              "prev": 3055,
+              "curr": 3079,
+              "unit": 24,
+              "bill": 150
+            },
+            {
+              "month": "APRIL",
+              "prev": 3079,
+              "curr": 3123,
+              "unit": 20,
+              "bill": 170
+            },
+            {
+              "month": "MAY",
+              "prev": 3123,
+              "curr": 3171,
+              "unit": 36,
+              "bill": 384
+            },
+            {
+              "month": "JUNE",
+              "prev": 3171,
+              "curr": 3228,
+              "unit": 44,
+              "bill": 490
+            },
+            {
+              "month": "JULY",
+              "prev": 3228,
+              "curr": 3297,
+              "unit": 50,
+              "bill": 550
+            },
+            {
+              "month": "AUGUST",
+              "prev": 3297,
+              "curr": 3374,
+              "unit": 63,
+              "bill": 624
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 3374,
+              "curr": 3456,
+              "unit": 65,
+              "bill": 650
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 3456,
+              "curr": 3532,
+              "unit": 56,
+              "bill": 600
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 3532,
+              "curr": 3606,
+              "unit": 50,
+              "bill": 530
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 3606,
+              "curr": 3641,
+              "unit": 27,
+              "bill": 250
+            },
+            {
+              "month": "JANUARY",
+              "prev": 3641,
+              "curr": 3664,
+              "unit": 18,
+              "bill": 150
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 3664,
+              "curr": 3687,
+              "unit": 18,
+              "bill": 150
+            },
+            {
+              "month": "MARCH",
+              "prev": 3687,
+              "curr": 3710,
+              "unit": 19,
+              "bill": 170
+            },
+            {
+              "month": "APRIL",
+              "prev": 3710,
+              "curr": 3750,
+              "unit": 28,
+              "bill": 320
+            },
+            {
+              "month": "MAY",
+              "prev": 3750,
+              "curr": 3810,
+              "unit": 35,
+              "bill": 450
+            },
+            {
+              "month": "JUNE",
+              "prev": 3810,
+              "curr": 3892,
+              "unit": 45,
+              "bill": 600
+            },
+            {
+              "month": "JULY",
+              "prev": 3892,
+              "curr": 3970,
+              "unit": 400,
+              "bill": 550
+            },
+            {
+              "month": "AUGUST",
+              "prev": 3970,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r18",
+          "roomNumber": 18,
+          "label": "Room 18",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 1019,
+              "curr": 1093,
+              "unit": 74,
+              "bill": 962
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 1093,
+              "curr": 1178,
+              "unit": 85,
+              "bill": 1105
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 1178,
+              "curr": 1227,
+              "unit": 49,
+              "bill": 637
+            },
+            {
+              "month": "JANUARY",
+              "prev": 1227,
+              "curr": 1268,
+              "unit": 41,
+              "bill": 533
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 1268,
+              "curr": 1282,
+              "unit": 14,
+              "bill": 182
+            },
+            {
+              "month": "MARCH",
+              "prev": 1282,
+              "curr": 1283,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "APRIL",
+              "prev": 1283,
+              "curr": 1336,
+              "unit": 53,
+              "bill": 689
+            },
+            {
+              "month": "MAY",
+              "prev": 1336,
+              "curr": 1397,
+              "unit": 61,
+              "bill": 793
+            },
+            {
+              "month": "JUNE",
+              "prev": 1397,
+              "curr": 1467,
+              "unit": 70,
+              "bill": 910
+            },
+            {
+              "month": "JULY",
+              "prev": 1467,
+              "curr": 1544,
+              "unit": 77,
+              "bill": 1001
+            },
+            {
+              "month": "AUGUST",
+              "prev": 1544,
+              "curr": 1658,
+              "unit": 114,
+              "bill": 1482
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 1658,
+              "curr": 1672,
+              "unit": 14,
+              "bill": 182
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 1672,
+              "curr": 1693,
+              "unit": 21,
+              "bill": 273
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 1693,
+              "curr": 1714,
+              "unit": 21,
+              "bill": 273
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 1714,
+              "curr": 1721,
+              "unit": 7,
+              "bill": 91
+            },
+            {
+              "month": "JANUARY",
+              "prev": 1721,
+              "curr": 1724,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 1724,
+              "curr": 1727,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "MARCH",
+              "prev": 1727,
+              "curr": 1731,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "APRIL",
+              "prev": 1731,
+              "curr": 1737,
+              "unit": 6,
+              "bill": 78
+            },
+            {
+              "month": "MAY",
+              "prev": 1737,
+              "curr": 1749,
+              "unit": 12,
+              "bill": 156
+            },
+            {
+              "month": "JUNE",
+              "prev": 1749,
+              "curr": 1766,
+              "unit": 17,
+              "bill": 221
+            },
+            {
+              "month": "JULY",
+              "prev": 1766,
+              "curr": 1789,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "AUGUST",
+              "prev": 1789,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r19",
+          "roomNumber": 19,
+          "label": "Room 19",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 1811,
+              "curr": 1842,
+              "unit": 31,
+              "bill": 403
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 1842,
+              "curr": 1855,
+              "unit": 13,
+              "bill": 169
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 1855,
+              "curr": 1860,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "JANUARY",
+              "prev": 1860,
+              "curr": 1861,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 1861,
+              "curr": 1862,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "MARCH",
+              "prev": 1862,
+              "curr": 1863,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "APRIL",
+              "prev": 1863,
+              "curr": 1879,
+              "unit": 16,
+              "bill": 208
+            },
+            {
+              "month": "MAY",
+              "prev": 1879,
+              "curr": 1902,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "JUNE",
+              "prev": 1902,
+              "curr": 1928,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "JULY",
+              "prev": 1928,
+              "curr": 1950,
+              "unit": 22,
+              "bill": 286
+            },
+            {
+              "month": "AUGUST",
+              "prev": 1950,
+              "curr": 2000,
+              "unit": 50,
+              "bill": 650
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 2000,
+              "curr": 2027,
+              "unit": 27,
+              "bill": 351
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 2027,
+              "curr": 2059,
+              "unit": 32,
+              "bill": 416
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 2059,
+              "curr": 2086,
+              "unit": 27,
+              "bill": 351
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 2086,
+              "curr": 2096,
+              "unit": 10,
+              "bill": 130
+            },
+            {
+              "month": "JANUARY",
+              "prev": 2096,
+              "curr": 2100,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 2100,
+              "curr": 2104,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "MARCH",
+              "prev": 2104,
+              "curr": 2108,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "APRIL",
+              "prev": 2108,
+              "curr": 2112,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "MAY",
+              "prev": 2112,
+              "curr": 2129,
+              "unit": 17,
+              "bill": 221
+            },
+            {
+              "month": "JUNE",
+              "prev": 2129,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r20",
+          "roomNumber": 20,
+          "label": "Room 20",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 1122,
+              "curr": 1169,
+              "unit": 47,
+              "bill": 611
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 1169,
+              "curr": 1209,
+              "unit": 40,
+              "bill": 520
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 1209,
+              "curr": 1235,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "JANUARY",
+              "prev": 1235,
+              "curr": 1255,
+              "unit": 20,
+              "bill": 260
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 1255,
+              "curr": 1271,
+              "unit": 16,
+              "bill": 208
+            },
+            {
+              "month": "MARCH",
+              "prev": 1271,
+              "curr": 1279,
+              "unit": 8,
+              "bill": 104
+            },
+            {
+              "month": "APRIL",
+              "prev": 1279,
+              "curr": 1326,
+              "unit": 47,
+              "bill": 611
+            },
+            {
+              "month": "MAY",
+              "prev": 1326,
+              "curr": 1354,
+              "unit": 28,
+              "bill": 364
+            },
+            {
+              "month": "JUNE",
+              "prev": 1354,
+              "curr": 1394,
+              "unit": 40,
+              "bill": 520
+            },
+            {
+              "month": "JULY",
+              "prev": 1394,
+              "curr": 1429,
+              "unit": 35,
+              "bill": 455
+            },
+            {
+              "month": "AUGUST",
+              "prev": 1429,
+              "curr": 1477,
+              "unit": 48,
+              "bill": 624
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 1477,
+              "curr": 1526,
+              "unit": 49,
+              "bill": 637
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 1526,
+              "curr": 1572,
+              "unit": 46,
+              "bill": 598
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 1572,
+              "curr": 1610,
+              "unit": 38,
+              "bill": 494
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 1610,
+              "curr": 1640,
+              "unit": 30,
+              "bill": 390
+            },
+            {
+              "month": "JANUARY",
+              "prev": 1640,
+              "curr": 1658,
+              "unit": 18,
+              "bill": 234
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 1658,
+              "curr": 1676,
+              "unit": 18,
+              "bill": 234
+            },
+            {
+              "month": "MARCH",
+              "prev": 1676,
+              "curr": 1695,
+              "unit": 19,
+              "bill": 247
+            },
+            {
+              "month": "APRIL",
+              "prev": 1695,
+              "curr": 1721,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "MAY",
+              "prev": 1721,
+              "curr": 1753,
+              "unit": 32,
+              "bill": 416
+            },
+            {
+              "month": "JUNE",
+              "prev": 1753,
+              "curr": 1795,
+              "unit": 42,
+              "bill": 546
+            },
+            {
+              "month": "JULY",
+              "prev": 1795,
+              "curr": 1833,
+              "unit": 38,
+              "bill": 494
+            },
+            {
+              "month": "AUGUST",
+              "prev": 1833,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r21",
+          "roomNumber": 21,
+          "label": "Room 21",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 29850,
+              "curr": 29918,
+              "unit": 68,
+              "bill": 884
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 29918,
+              "curr": 29969,
+              "unit": 51,
+              "bill": 663
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 29969,
+              "curr": 30004,
+              "unit": 35,
+              "bill": 455
+            },
+            {
+              "month": "JANUARY",
+              "prev": 30004,
+              "curr": 30033,
+              "unit": 29,
+              "bill": 377
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 30033,
+              "curr": 30059,
+              "unit": 26,
+              "bill": 338
+            },
+            {
+              "month": "MARCH",
+              "prev": 30059,
+              "curr": 30080,
+              "unit": 21,
+              "bill": 273
+            },
+            {
+              "month": "APRIL",
+              "prev": 30080,
+              "curr": 30126,
+              "unit": 46,
+              "bill": 598
+            },
+            {
+              "month": "MAY",
+              "prev": 30126,
+              "curr": 30176,
+              "unit": 50,
+              "bill": 650
+            },
+            {
+              "month": "JUNE",
+              "prev": 30176,
+              "curr": 30247,
+              "unit": 71,
+              "bill": 923
+            },
+            {
+              "month": "JULY",
+              "prev": 30247,
+              "curr": 30296,
+              "unit": 49,
+              "bill": 637
+            },
+            {
+              "month": "AUGUST",
+              "prev": 30296,
+              "curr": 30351,
+              "unit": 55,
+              "bill": 715
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 30351,
+              "curr": 30401,
+              "unit": 50,
+              "bill": 650
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 30401,
+              "curr": 30456,
+              "unit": 55,
+              "bill": 715
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 30456,
+              "curr": 30498,
+              "unit": 42,
+              "bill": 546
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 30498,
+              "curr": 30525,
+              "unit": 27,
+              "bill": 351
+            },
+            {
+              "month": "JANUARY",
+              "prev": 30525,
+              "curr": 30552,
+              "unit": 27,
+              "bill": 351
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 30552,
+              "curr": 30573,
+              "unit": 21,
+              "bill": 273
+            },
+            {
+              "month": "MARCH",
+              "prev": 30573,
+              "curr": 30608,
+              "unit": 35,
+              "bill": 455
+            },
+            {
+              "month": "APRIL",
+              "prev": 30608,
+              "curr": 30648,
+              "unit": 40,
+              "bill": 520
+            },
+            {
+              "month": "MAY",
+              "prev": 30648,
+              "curr": 30682,
+              "unit": 34,
+              "bill": 442
+            },
+            {
+              "month": "JUNE",
+              "prev": 30682,
+              "curr": 30720,
+              "unit": 38,
+              "bill": 494
+            },
+            {
+              "month": "JULY",
+              "prev": 30720,
+              "curr": 30783,
+              "unit": 63,
+              "bill": 819
+            },
+            {
+              "month": "AUGUST",
+              "prev": 30783,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r22",
+          "roomNumber": 22,
+          "label": "Room 22",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 701,
+              "curr": 726,
+              "unit": 25,
+              "bill": 325
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 726,
+              "curr": 748,
+              "unit": 22,
+              "bill": 286
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 748,
+              "curr": 750,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "JANUARY",
+              "prev": 750,
+              "curr": 752,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 752,
+              "curr": 755,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "MARCH",
+              "prev": 755,
+              "curr": 757,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "APRIL",
+              "prev": 757,
+              "curr": 759,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "MAY",
+              "prev": 759,
+              "curr": 762,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "JUNE",
+              "prev": 762,
+              "curr": 766,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "JULY",
+              "prev": 766,
+              "curr": 771,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "AUGUST",
+              "prev": 771,
+              "curr": 778,
+              "unit": 7,
+              "bill": 91
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 778,
+              "curr": 821,
+              "unit": 43,
+              "bill": 559
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 821,
+              "curr": 844,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 844,
+              "curr": 860,
+              "unit": 16,
+              "bill": 208
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 860,
+              "curr": 869,
+              "unit": 9,
+              "bill": 117
+            },
+            {
+              "month": "JANUARY",
+              "prev": 869,
+              "curr": 870,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 870,
+              "curr": 872,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "MARCH",
+              "prev": 872,
+              "curr": 874,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "APRIL",
+              "prev": 874,
+              "curr": 879,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "MAY",
+              "prev": 879,
+              "curr": 897,
+              "unit": 18,
+              "bill": 234
+            },
+            {
+              "month": "JUNE",
+              "prev": 897,
+              "curr": 904,
+              "unit": 7,
+              "bill": 91
+            },
+            {
+              "month": "JULY",
+              "prev": 904,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "main-r23",
+          "roomNumber": 23,
+          "label": "Room 23",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 972,
+              "curr": 995,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 995,
+              "curr": 1013,
+              "unit": 18,
+              "bill": 234
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 1013,
+              "curr": 1019,
+              "unit": 6,
+              "bill": 78
+            },
+            {
+              "month": "JANUARY",
+              "prev": 1019,
+              "curr": 1022,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 1022,
+              "curr": 1026,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "MARCH",
+              "prev": 1026,
+              "curr": 1029,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "APRIL",
+              "prev": 1029,
+              "curr": 1045,
+              "unit": 16,
+              "bill": 208
+            },
+            {
+              "month": "MAY",
+              "prev": 1045,
+              "curr": 1079,
+              "unit": 34,
+              "bill": 442
+            },
+            {
+              "month": "JUNE",
+              "prev": 1079,
+              "curr": 1114,
+              "unit": 35,
+              "bill": 455
+            },
+            {
+              "month": "JULY",
+              "prev": 1114,
+              "curr": 1131,
+              "unit": 17,
+              "bill": 221
+            },
+            {
+              "month": "AUGUST",
+              "prev": 1131,
+              "curr": 1149,
+              "unit": 18,
+              "bill": 234
+            },
+            {
+              "month": "SEPTEMBER",
+              "prev": 1149,
+              "curr": 1166,
+              "unit": 17,
+              "bill": 221
+            },
+            {
+              "month": "OCTOBER",
+              "prev": 7,
+              "curr": 36,
+              "unit": 29,
+              "bill": 377
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 36,
+              "curr": 57,
+              "unit": 21,
+              "bill": 273
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 57,
+              "curr": 61,
+              "unit": 4,
+              "bill": 52
+            },
+            {
+              "month": "JANUARY",
+              "prev": 61,
+              "curr": 62,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "FEBRUARY",
+              "prev": 62,
+              "curr": 64,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "MARCH",
+              "prev": 64,
+              "curr": 67,
+              "unit": 3,
+              "bill": 39
+            },
+            {
+              "month": "APRIL",
+              "prev": 67,
+              "curr": 72,
+              "unit": 5,
+              "bill": 65
+            },
+            {
+              "month": "MAY",
+              "prev": 72,
+              "curr": 86,
+              "unit": 14,
+              "bill": 182
+            },
+            {
+              "month": "JUNE",
+              "prev": 86,
+              "curr": 100,
+              "unit": 14,
+              "bill": 182
+            },
+            {
+              "month": "JULY",
+              "prev": 100,
+              "curr": 119,
+              "unit": 19,
+              "bill": 247
+            },
+            {
+              "month": "AUGUST",
+              "prev": 119,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jihadbari",
+      "name": "Jihad Bari",
+      "rooms": [
+        {
+          "id": "jihadbari-r01",
+          "roomNumber": 1,
+          "label": "Room 01",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 4085,
+              "curr": 4085,
+              "unit": 0,
+              "bill": 0
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 4085,
+              "curr": 4585,
+              "unit": 0,
+              "bill": 0
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 4585,
+              "curr": 4587,
+              "unit": 2,
+              "bill": 26
+            },
+            {
+              "month": "JANUARY",
+              "prev": 4587,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "jihadbari-r02",
+          "roomNumber": 2,
+          "label": "Room 02",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 10080,
+              "curr": 10080,
+              "unit": 0,
+              "bill": 0
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 10080,
+              "curr": 10089,
+              "unit": 9,
+              "bill": 117
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 10089,
+              "curr": 10090,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "JANUARY",
+              "prev": 10090,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "jihadbari-r03",
+          "roomNumber": 3,
+          "label": "Room 03",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 8346,
+              "curr": 8346,
+              "unit": 0,
+              "bill": 0
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 8346,
+              "curr": 8369,
+              "unit": 23,
+              "bill": 299
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 8369,
+              "curr": 8370,
+              "unit": 1,
+              "bill": 13
+            },
+            {
+              "month": "JANUARY",
+              "prev": 8370,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        },
+        {
+          "id": "jihadbari-r04",
+          "roomNumber": 4,
+          "label": "Room 04",
+          "tenantName": "",
+          "history": [
+            {
+              "month": "OCTOBER",
+              "prev": 100,
+              "curr": 100,
+              "unit": 0,
+              "bill": 0
+            },
+            {
+              "month": "NOVEMBER",
+              "prev": 100,
+              "curr": 23553,
+              "unit": 0,
+              "bill": 0
+            },
+            {
+              "month": "DECEMBER",
+              "prev": 23553,
+              "curr": 23560,
+              "unit": 7,
+              "bill": 91
+            },
+            {
+              "month": "JANUARY",
+              "prev": 23560,
+              "curr": null,
+              "unit": null,
+              "bill": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+const ADMIN_PASSWORD = "11220099";
+
+/* ============ FIREBASE CONFIG ============ */
+/* Paste your Firebase project's config here — from Firebase Console →
+   Project settings → Your apps → SDK setup and configuration */
+const firebaseConfig = {
+  apiKey: "AIzaSyBEkx77UcHHZxtL8OyDr7_v3P9Tx-VwVgk",
+  authDomain: "electricity-bill-7165f.firebaseapp.com",
+  databaseURL: "https://electricity-bill-7165f-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "electricity-bill-7165f",
+  storageBucket: "electricity-bill-7165f.firebasestorage.app",
+  messagingSenderId: "416228730753",
+  appId: "1:416228730753:web:679c65a1c7d19ea8fd6a80"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const DATA_REF = db.ref("voltLedgerData");
+
+/* ============ STATE ============ */
+let STATE = {
+  data: null,          // { rate, buildings }
+  view: 'home',        // home | detail | admin
+  activeBuildingId: null,
+  activeRoomId: null,
+  isAdmin: false,
+  adminSelectedRoomId: null,
+  loading: true,
+  chartMetric: 'unit'   // 'unit' | 'bill' — which metric the usage trend chart shows
+};
+
+/* ============ DATABASE (Firebase Realtime Database) with offline safety ============ */
+let liveSyncActive = false;
+const LOCAL_KEY = 'voltLedgerLocalData';
+const PENDING_KEY = 'voltLedgerPendingSync';
+
+function saveLocalCopy(data){
+  try{ localStorage.setItem(LOCAL_KEY, JSON.stringify(data)); }catch(e){ /* storage unavailable, ignore */ }
+}
+function getLocalCopy(){
+  try{ const raw = localStorage.getItem(LOCAL_KEY); return raw ? JSON.parse(raw) : null; }catch(e){ return null; }
+}
+function setPending(isPending){
+  try{ localStorage.setItem(PENDING_KEY, isPending ? '1' : '0'); }catch(e){ /* ignore */ }
+  updateSyncBadge();
+}
+function isPending(){
+  try{ return localStorage.getItem(PENDING_KEY) === '1'; }catch(e){ return false; }
+}
+
+async function loadData(){
+  // If a previous session left unsynced changes, those take priority — never let them get silently lost
+  if(isPending()){
+    const local = getLocalCopy();
+    if(local){
+      trySyncPending(); // fire-and-forget attempt to push it up right away
+      return local;
+    }
+  }
+  try{
+    const snap = await DATA_REF.once('value');
+    if(snap.exists()){
+      const val = snap.val();
+      saveLocalCopy(val);
+      return val;
+    }
+    // first-ever run: seed the database with the CSV data
+    await DATA_REF.set(SEED_DATA);
+    saveLocalCopy(SEED_DATA);
+    return JSON.parse(JSON.stringify(SEED_DATA));
+  }catch(e){
+    console.error('Firebase load error:', e);
+    const local = getLocalCopy();
+    if(local){
+      showToast('Offline — showing your last saved data', 'warning');
+      return local;
+    }
+    showToast('Could not connect to database — check firebaseConfig', 'error');
+    return JSON.parse(JSON.stringify(SEED_DATA));
+  }
+}
+
+async function saveData(){
+  // 1. Always save locally first, synchronously — this is what protects against data loss offline
+  saveLocalCopy(STATE.data);
+  setPending(true);
+  // 2. Try to push to Firebase
+  try{
+    await DATA_REF.set(STATE.data);
+    setPending(false);
+  }catch(e){
+    console.error('Firebase save error:', e);
+    showToast('No internet — saved on this device, will publish once you\u2019re back online', 'warning');
+  }
+}
+
+async function trySyncPending(){
+  if(!isPending()) return;
+  if(typeof navigator !== 'undefined' && navigator.onLine === false) return;
+  try{
+    const local = getLocalCopy();
+    if(!local) return;
+    await DATA_REF.set(local);
+    setPending(false);
+    showToast('Back online — your changes are published ✓');
+  }catch(e){
+    // still offline or blocked, will retry later
+  }
+}
+
+// Keep every open tab/device in sync in real time
+function startLiveSync(){
+  if(liveSyncActive) return;
+  liveSyncActive = true;
+  DATA_REF.on('value', (snap)=>{
+    if(!snap.exists()) return;
+    if(isPending()) return; // don't let remote data clobber unsynced local edits
+    STATE.data = snap.val();
+    saveLocalCopy(STATE.data);
+    if(!STATE.loading) render();
+  });
+  window.addEventListener('online', trySyncPending);
+  setInterval(trySyncPending, 15000);
+}
+
+function updateSyncBadge(){
+  const el = document.getElementById('sync-badge');
+  if(!el) return;
+  if(isPending()){
+    el.textContent = '● Offline — changes pending';
+    el.className = 'sync-badge pending';
+  }else{
+    el.textContent = '● Synced';
+    el.className = 'sync-badge';
+  }
+}
+
+/* ============ HELPERS ============ */
+function findBuilding(id){ return STATE.data.buildings.find(b=>b.id===id); }
+function findRoom(roomId){
+  for(const b of STATE.data.buildings){
+    const r = b.rooms.find(r=>r.id===roomId);
+    if(r) return {room:r, building:b};
+  }
+  return null;
+}
+function fmtNum(n){
+  if(n===null || n===undefined || n==='') return '—';
+  return Number(n).toLocaleString('en-US');
+}
+function monthShort(m){ return m.slice(0,3); }
+function latestEntry(room){
+  return room.history.length ? room.history[room.history.length-1] : null;
+}
+// Like latestEntry, but skips a trailing placeholder row that has no reading yet
+// (e.g. next month already added to the table but curr/unit not filled in).
+function latestFilledEntry(room){
+  for(let i=room.history.length-1; i>=0; i--){
+    const h = room.history[i];
+    if(h && h.unit !== null && h.unit !== undefined) return h;
+  }
+  return null;
+}
+function allRoomsFlat(){
+  const list = [];
+  STATE.data.buildings.forEach(b=> b.rooms.forEach(r=> list.push({room:r, building:b})));
+  return list;
+}
+function totalBill(room){
+  return room.history.reduce((s,h)=> s + (Number(h.bill)||0), 0);
+}
+function totalUnit(room){
+  return room.history.reduce((s,h)=> s + (Number(h.unit)||0), 0);
+}
+function buildingTotals(building){
+  let bill=0, unit=0;
+  building.rooms.forEach(r=>{ bill+=totalBill(r); unit+=totalUnit(r); });
+  return {bill, unit};
+}
+let toastTimer=null;
+function showToast(msg, type='success'){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show ' + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>{ el.className = 'toast ' + type; }, 2600);
+}
+function escapeHtml(s){
+  if(s===null||s===undefined) return '';
+  return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ============ THEME (dark neon / white & blue) ============ */
+const THEME_KEY = 'voltLedgerTheme';
+function getTheme(){
+  try{ return localStorage.getItem(THEME_KEY) || 'dark'; }catch(e){ return 'dark'; }
+}
+function applyTheme(theme){
+  document.documentElement.setAttribute('data-theme', theme);
+  try{ localStorage.setItem(THEME_KEY, theme); }catch(e){ /* ignore */ }
+}
+function toggleTheme(){
+  const next = getTheme()==='light' ? 'dark' : 'light';
+  applyTheme(next);
+  render();
+}
+function getThemeIcon(){
+  return getTheme()==='light'
+    ? `<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`
+    : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+}
+
+/* ============ ICONS ============ */
+const ICON_BOLT = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L4 14H11L10 22L20 9H13L13 2Z" fill="#0a0d18"/></svg>`;
+const ICON_ARROW_LEFT = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const ICON_LOCK = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 10V7a5 5 0 0110 0v3" stroke="currentColor" stroke-width="2"/></svg>`;
+const ICON_EMPTY = `<svg width="52" height="52" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M9 10h.01M15 10h.01M8 15c1.2 1 2.6 1.5 4 1.5s2.8-.5 4-1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+const ICON_DOWNLOAD = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const ICON_CHART = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 19V10M11 19V5M18 19v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+/* Gauge: circular progress showing this room's latest unit usage relative to building max */
+function gaugeSvg(pct, colorFrom, colorTo, centerLabel, subLabel, size=88){
+  const r = (size/2) - 8;
+  const c = size/2;
+  const circumference = 2*Math.PI*r;
+  const offset = circumference * (1 - Math.min(Math.max(pct,0),1));
+  const gradId = 'g'+Math.random().toString(36).slice(2,9);
+  return `
+  <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+    <defs>
+      <linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="${colorFrom}"/>
+        <stop offset="100%" stop-color="${colorTo}"/>
+      </linearGradient>
+    </defs>
+    <circle cx="${c}" cy="${c}" r="${r}" stroke="rgba(255,255,255,0.08)" stroke-width="7" fill="none"/>
+    <circle cx="${c}" cy="${c}" r="${r}" stroke="url(#${gradId})" stroke-width="7" fill="none"
+      stroke-linecap="round" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"
+      transform="rotate(-90 ${c} ${c})" style="transition:stroke-dashoffset 0.9s cubic-bezier(.3,.9,.3,1);"/>
+    <text x="${c}" y="${c-2}" text-anchor="middle" fill="var(--ink)" font-family="JetBrains Mono" font-weight="700" font-size="16">${centerLabel}</text>
+    <text x="${c}" y="${c+14}" text-anchor="middle" fill="var(--ink-faint)" font-family="Inter" font-size="9">${subLabel}</text>
+  </svg>`;
+}
+
+/* ============ USAGE TREND CHART ============ */
+function trendChartSvg(entries, metric){
+  const w = 640, h = 220, padL = 46, padR = 18, padT = 18, padB = 30;
+  const vals = entries.map(e => Number(metric==='unit' ? e.unit : e.bill) || 0);
+  const max = Math.max(...vals, 1);
+  const n = entries.length;
+  const chartW = w - padL - padR;
+  const chartH = h - padT - padB;
+  const stepX = n > 1 ? chartW/(n-1) : 0;
+  const accent = metric === 'unit' ? 'var(--cyan)' : 'var(--violet)';
+
+  const pts = entries.map((e,i)=>{
+    const v = vals[i];
+    const x = padL + i*stepX;
+    const y = padT + chartH - (v/max)*chartH;
+    return {x, y, v, month:e.month};
+  });
+
+  const linePath = pts.length
+    ? pts.map((p,i)=> (i===0?'M':'L') + p.x.toFixed(1) + ' ' + p.y.toFixed(1)).join(' ')
+    : '';
+  const areaPath = pts.length
+    ? linePath + ` L ${pts[pts.length-1].x.toFixed(1)} ${(padT+chartH).toFixed(1)} L ${pts[0].x.toFixed(1)} ${(padT+chartH).toFixed(1)} Z`
+    : '';
+
+  const gridLines = [0,0.5,1].map(f=>{
+    const y = padT + chartH - f*chartH;
+    const label = fmtNum(Math.round(max*f));
+    return `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${w-padR}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <text x="${padL-8}" y="${(y+3).toFixed(1)}" text-anchor="end" font-family="JetBrains Mono" font-size="9" fill="var(--ink-faint)">${label}</text>`;
+  }).join('');
+
+  const labelEvery = n > 14 ? Math.ceil(n/8) : (n > 8 ? 2 : 1);
+  const xLabels = pts.map((p,i)=> i % labelEvery === 0
+    ? `<text x="${p.x.toFixed(1)}" y="${h-8}" text-anchor="middle" font-family="Inter" font-size="9" fill="var(--ink-faint)">${monthShort(p.month)}</text>`
+    : '').join('');
+
+  const dots = pts.map(p=>
+    `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.4" fill="${accent}" stroke="var(--bg-1)" stroke-width="1.5">` +
+    `<title>${escapeHtml(p.month)}: ${fmtNum(p.v)}${metric==='bill' ? ' Tk' : ' units'}</title></circle>`
+  ).join('');
+
+  const gradId = 'tg'+Math.random().toString(36).slice(2,8);
+
+  if(!pts.length){
+    return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto;display:block;"></svg>`;
+  }
+
+  return `
+  <svg viewBox="0 0 ${w} ${h}" style="width:100%; height:auto; display:block;">
+    <defs>
+      <linearGradient id="${gradId}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${accent}" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    ${gridLines}
+    <path d="${areaPath}" fill="url(#${gradId})" stroke="none"/>
+    <path d="${linePath}" fill="none" stroke="${accent}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+    ${dots}
+    ${xLabels}
+  </svg>`;
+}
+
+function setChartMetric(metric){
+  STATE.chartMetric = metric;
+  render();
+}
+
+/* ============ ANALYSIS: NEON LEADERBOARD CHART ============ */
+const NEON_BARS = [
+  ['#2dd4f0','#4ee6a8'],
+  ['#a679ff','#ff6fa5'],
+  ['#ffc857','#ff6b6b'],
+  ['#4ee6a8','#2dd4f0'],
+  ['#ff6fa5','#a679ff'],
+  ['#ff6b6b','#ffc857'],
+  ['#2dd4f0','#a679ff'],
+  ['#ffc857','#4ee6a8'],
+  ['#a679ff','#2dd4f0'],
+  ['#4ee6a8','#ff6fa5']
+];
+
+function neonBarChart(items, opts={}){
+  if(!items.length){
+    return `<div class="empty-state" style="padding:24px;">${ICON_EMPTY}<div>Not enough data yet.</div></div>`;
+  }
+  const w = 640;
+  const barH = 26, gap = 24;
+  const rowH = barH + gap;
+  const h = items.length*rowH + 6;
+  const max = Math.max(...items.map(i=>i.value), 1);
+  const valueColW = 64;               // reserved space on the right for the number, so it never sits on the bar
+  const trackW = w - valueColW;
+
+  const bars = items.map((it,i)=>{
+    const y = 20 + i*rowH;
+    const barW = Math.max(6, (it.value/max)*trackW);
+    const [c1,c2] = NEON_BARS[i % NEON_BARS.length];
+    const gradId = 'nb'+Math.random().toString(36).slice(2,9);
+    const crown = i===0 ? '👑 ' : '';
+    const subTxt = it.sub ? '  —  ' + it.sub : '';
+    return `
+    <g>
+      <text x="0" y="${y-8}" font-family="Inter" font-size="12.5" font-weight="600" fill="var(--ink)">${crown}${escapeHtml(it.label)}<tspan fill="var(--ink-faint)" font-size="11">${escapeHtml(subTxt)}</tspan></text>
+      <defs><linearGradient id="${gradId}" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/>
+      </linearGradient></defs>
+      <rect x="0" y="${y}" width="${trackW}" height="${barH}" rx="${barH/2}" fill="rgba(255,255,255,0.06)"/>
+      <rect x="0" y="${y}" width="${barW.toFixed(1)}" height="${barH}" rx="${barH/2}" fill="url(#${gradId})" style="filter:drop-shadow(0 0 6px ${c1}88);">
+        <title>${escapeHtml(it.label)}: ${fmtNum(it.value)}${opts.unitLabel ? ' '+opts.unitLabel : ''}</title>
+      </rect>
+      <text x="${(trackW+12).toFixed(1)}" y="${y+barH/1.6}" text-anchor="start" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="var(--ink)">${fmtNum(it.value)}</text>
+    </g>`;
+  }).join('');
+
+  return `<svg viewBox="0 0 ${w} ${h}" style="width:100%; height:auto; display:block; overflow:visible;">${bars}</svg>`;
+}
+
+/* ============ ANALYSIS: PIE / DONUT CHART ============ */
+// Auto-generates visually distinct colors using the golden-angle hue rotation,
+// so it looks good no matter how many rooms exist.
+function sliceColor(i){
+  const hue = (i * 137.508) % 360;
+  return `hsl(${hue.toFixed(1)} 78% 62%)`;
+}
+
+function pieChartSvg(rawItems, opts={}){
+  const items = rawItems.filter(i=>i.value>0).sort((a,b)=>b.value-a.value);
+  if(!items.length){
+    return `<div class="empty-state" style="padding:24px;">${ICON_EMPTY}<div>Not enough data yet.</div></div>`;
+  }
+  const maxSlices = opts.maxSlices || 9;
+  let sliceData = items.slice(0, maxSlices);
+  if(items.length > maxSlices){
+    const otherValue = items.slice(maxSlices).reduce((s,i)=>s+i.value,0);
+    sliceData = sliceData.concat([{ label: `Other (${items.length - maxSlices} rooms)`, value: otherValue, isOther:true }]);
+  }
+  const total = sliceData.reduce((s,i)=>s+i.value,0) || 1;
+  const size = opts.size || 240;
+  const cx = size/2, cy = size/2, r = size/2 - 6;
+  const innerR = opts.donut ? r*0.58 : 0;
+
+  let angle = -Math.PI/2;
+  const slices = sliceData.map((it,i)=>{
+    const frac = it.value/total;
+    const sweep = frac * Math.PI * 2;
+    const startAngle = angle, endAngle = angle + sweep;
+    angle = endAngle;
+    const x1 = cx + r*Math.cos(startAngle), y1 = cy + r*Math.sin(startAngle);
+    const x2 = cx + r*Math.cos(endAngle), y2 = cy + r*Math.sin(endAngle);
+    const largeArc = sweep > Math.PI ? 1 : 0;
+    const color = it.isOther ? 'rgba(255,255,255,0.18)' : sliceColor(i);
+    let d;
+    if(innerR > 0){
+      const ix1 = cx + innerR*Math.cos(endAngle), iy1 = cy + innerR*Math.sin(endAngle);
+      const ix2 = cx + innerR*Math.cos(startAngle), iy2 = cy + innerR*Math.sin(startAngle);
+      d = `M ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${largeArc} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} L ${ix1.toFixed(2)} ${iy1.toFixed(2)} A ${innerR} ${innerR} 0 ${largeArc} 0 ${ix2.toFixed(2)} ${iy2.toFixed(2)} Z`;
+    } else {
+      d = `M ${cx} ${cy} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${largeArc} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z`;
+    }
+    return { d, color, label: it.label, pct: (frac*100).toFixed(1), value: it.value };
+  });
+
+  const paths = slices.map(s=>
+    `<path d="${s.d}" fill="${s.color}" stroke="var(--bg-1)" stroke-width="2" style="transition:transform .2s ease; transform-origin:${cx}px ${cy}px;">` +
+    `<title>${escapeHtml(s.label)}: ${fmtNum(s.value)}${opts.unitLabel ? ' '+opts.unitLabel : ''} (${s.pct}%)</title></path>`
+  ).join('');
+
+  const centerText = innerR > 0
+    ? `<text x="${cx}" y="${cy-4}" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="16" fill="var(--ink)">${fmtNum(total)}</text>
+       <text x="${cx}" y="${cy+14}" text-anchor="middle" font-family="Inter" font-size="9.5" fill="var(--ink-faint)">${escapeHtml(opts.centerLabel||'total')}</text>`
+    : '';
+
+  const legend = slices.map(s=>`
+    <div style="display:flex; align-items:center; gap:9px; font-size:12.5px;">
+      <span style="width:10px;height:10px;border-radius:3px;background:${s.color}; flex-shrink:0;"></span>
+      <span style="color:var(--ink); font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(s.label)}</span>
+      <span class="mono" style="color:var(--ink-faint); margin-left:auto; padding-left:10px; white-space:nowrap;">${s.pct}%</span>
+    </div>`).join('');
+
+  return `
+  <div style="display:flex; gap:30px; flex-wrap:wrap; align-items:center; justify-content:center;">
+    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="flex-shrink:0;">${paths}${centerText}</svg>
+    <div style="display:flex; flex-direction:column; gap:9px; min-width:180px; max-width:260px; flex:1;">${legend}</div>
+  </div>`;
+}
+
+/* ============ RENDER: ANALYSIS ============ */
+function renderAnalysis(){
+  const flat = allRoomsFlat();
+
+  // Highest usage of ALL TIME — cumulative units across every recorded month
+  const allTime = flat
+    .map(x=>({ label: x.room.tenantName || x.room.label, sub: x.building.name, value: totalUnit(x.room) }))
+    .filter(x=>x.value>0)
+    .sort((a,b)=>b.value-a.value)
+    .slice(0,10);
+
+  // Highest usage THIS MONTH — each room's latest actually-filled reading
+  const thisMonth = flat
+    .map(x=>{
+      const e = latestFilledEntry(x.room);
+      return e ? { label: x.room.tenantName || x.room.label, sub: x.building.name + ' · ' + e.month, value: Number(e.unit)||0 } : null;
+    })
+    .filter(Boolean)
+    .sort((a,b)=>b.value-a.value)
+    .slice(0,10);
+
+  // Building vs building, all-time
+  const buildingCompare = STATE.data.buildings
+    .map(b=>({ label: b.name, value: buildingTotals(b).unit }))
+    .sort((a,b)=>b.value-a.value);
+
+  // Full (unsliced) datasets for pie charts — every room with usage, all combined
+  const allTimePie = flat
+    .map(x=>({ label: x.room.tenantName || x.room.label, value: totalUnit(x.room) }))
+    .filter(x=>x.value>0);
+  const thisMonthPie = flat
+    .map(x=>{ const e = latestFilledEntry(x.room); return e ? { label: x.room.tenantName || x.room.label, value: Number(e.unit)||0 } : null; })
+    .filter(Boolean);
+  const billSharePie = flat
+    .map(x=>({ label: x.room.tenantName || x.room.label, value: totalBill(x.room) }))
+    .filter(x=>x.value>0);
+
+  // Overall numbers
+  let grandUnits=0, grandBill=0, roomCount=0;
+  flat.forEach(x=>{ grandUnits += totalUnit(x.room); grandBill += totalBill(x.room); roomCount++; });
+  const avgUnitsPerRoom = roomCount ? Math.round(grandUnits/roomCount) : 0;
+
+  // Biggest single-month spike ever recorded, across every room/month
+  let spike = null;
+  flat.forEach(x=>{
+    x.room.history.forEach(h=>{
+      if(h.unit!==null && h.unit!==undefined && (!spike || h.unit>spike.unit)){
+        spike = { unit:h.unit, bill:h.bill, month:h.month, label: x.room.tenantName || x.room.label, building: x.building.name };
+      }
+    });
+  });
+
+  const suggestions = [
+    'Cost-per-room vs. building average, so any outlier room stands out immediately each month.',
+    'A spike alert that flags a room using 40%+ more units than its own trailing 6-month average.',
+    'Year-over-year comparison (this July vs. last July) once 12+ months of history pile up.',
+    'A projected next bill for each room, based on its last 3 months\u2019 trend.',
+    '"Most improved" leaderboard — rooms whose usage dropped the most month over month.',
+    'Building-vs-building cost efficiency (৳ per unit), useful if the two houses ever get different rates.',
+    'A downloadable analysis PDF/CSV of the full leaderboard, not just per-room statements.',
+    'A simple usage target per room with a progress bar toward it.'
+  ];
+
+  return `
+  <div class="hero">
+    <div class="hero-eyebrow">Insights</div>
+    <h1>Who's burning<br/>the most watts?</h1>
+    <p>A live look at consumption across every room and building — all-time totals, this month's leaders, and a few numbers worth keeping an eye on.</p>
+  </div>
+
+  <div class="glass reveal month-summary" style="margin-bottom:26px;">
+    <div class="summary-item"><div class="v">${fmtNum(grandUnits)}</div><div class="l">Total Units, All-Time</div></div>
+    <div class="summary-divider"></div>
+    <div class="summary-item"><div class="v">৳${fmtNum(grandBill)}</div><div class="l">Total Billed, All-Time</div></div>
+    <div class="summary-divider"></div>
+    <div class="summary-item"><div class="v">${fmtNum(avgUnitsPerRoom)}</div><div class="l">Avg Units / Room</div></div>
+    <div class="summary-divider"></div>
+    <div class="summary-item"><div class="v">${roomCount}</div><div class="l">Rooms Tracked</div></div>
+  </div>
+
+  <div class="glass reveal trend-card" style="margin-bottom:22px;">
+    <div class="trend-head"><h3>🏆 Highest Usage — All Time</h3></div>
+    ${neonBarChart(allTime, {unitLabel:'units'})}
+  </div>
+
+  <div class="glass reveal trend-card" style="margin-bottom:22px;">
+    <div class="trend-head"><h3>⚡ Highest Usage — This Month</h3></div>
+    ${neonBarChart(thisMonth, {unitLabel:'units'})}
+  </div>
+
+  <div class="glass reveal trend-card" style="margin-bottom:22px;">
+    <div class="trend-head"><h3>🏢 Building Comparison — All Time</h3></div>
+    ${neonBarChart(buildingCompare, {unitLabel:'units'})}
+  </div>
+
+  <div class="analysis-pie-grid">
+    <div class="glass reveal trend-card">
+      <div class="trend-head"><h3>🥧 Usage Share — All Time</h3></div>
+      ${pieChartSvg(allTimePie, {unitLabel:'units', centerLabel:'units total'})}
+    </div>
+    <div class="glass reveal trend-card">
+      <div class="trend-head"><h3>🍩 Usage Share — This Month</h3></div>
+      ${pieChartSvg(thisMonthPie, {donut:true, unitLabel:'units', centerLabel:'units this month'})}
+    </div>
+  </div>
+
+  <div class="analysis-pie-grid">
+    <div class="glass reveal trend-card">
+      <div class="trend-head"><h3>💰 Bill Share — All Time (৳)</h3></div>
+      ${pieChartSvg(billSharePie, {unitLabel:'৳', centerLabel:'৳ total'})}
+    </div>
+    <div class="glass reveal trend-card">
+      <div class="trend-head"><h3>🏠 Building Split — All-Time Units</h3></div>
+      ${pieChartSvg(buildingCompare, {donut:true, maxSlices:6, unitLabel:'units', centerLabel:'units total'})}
+    </div>
+  </div>
+
+  ${spike ? `
+  <div class="glass reveal" style="padding:22px 24px; margin-bottom:22px; display:flex; align-items:center; gap:18px; flex-wrap:wrap;">
+    <div style="font-size:26px;">🔥</div>
+    <div>
+      <div style="font-size:12px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.06em; font-weight:600;">Highest Single-Month Spike Ever</div>
+      <div style="font-size:16px; font-weight:700; margin-top:3px;">${escapeHtml(spike.label)} <span style="color:var(--ink-dim); font-weight:500;">(${escapeHtml(spike.building)})</span> — ${fmtNum(spike.unit)} units in ${escapeHtml(spike.month)} <span class="mono" style="color:var(--amber);">৳${fmtNum(spike.bill)}</span></div>
+    </div>
+  </div>` : ''}
+
+  <div class="glass reveal" style="padding:24px 26px;">
+    <h3 style="margin:0 0 4px; font-size:17px;">💡 More you could add to this page</h3>
+    <div style="color:var(--ink-dim); font-size:13px; margin-bottom:16px;">A few ideas for the next iteration of Analysis:</div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      ${suggestions.map((s,i)=>`
+        <div style="display:flex; gap:12px; align-items:flex-start; padding:12px 14px; border-radius:12px; background:rgba(255,255,255,0.035); border:1px solid var(--glass-border);">
+          <div style="width:22px;height:22px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:linear-gradient(135deg, ${NEON_BARS[i%NEON_BARS.length][0]}, ${NEON_BARS[i%NEON_BARS.length][1]}); color:#0a0d18;">${i+1}</div>
+          <div style="font-size:13.5px; line-height:1.5; color:var(--ink);">${escapeHtml(s)}</div>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+  `;
+}
+
+/* ============ RENDER: ROOT ============ */
+function render(){
+  const app = document.getElementById('app');
+  if(STATE.loading){
+    app.innerHTML = renderTopbar() + `<div class="loading-spin"></div>`;
+    return;
+  }
+  let body = '';
+  if(STATE.view === 'home') body = renderHome();
+  else if(STATE.view === 'detail') body = renderDetail();
+  else if(STATE.view === 'analysis') body = renderAnalysis();
+  else if(STATE.view === 'admin') body = STATE.isAdmin ? renderAdminPanel() : renderGate();
+  app.innerHTML = renderTopbar() + body;
+  attachHandlers();
+}
+
+function renderTopbar(){
+  return `
+  <div class="topbar">
+    <div class="brand" onclick="goHome()">
+      <div class="brand-mark">${ICON_BOLT}</div>
+      <div class="brand-text">
+        <div class="k">Electricity Bill · By Shuvro Deb</div>
+        <div class="t">LITON HOUSE</div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost btn-sm theme-toggle" onclick="toggleTheme()" title="Switch theme">${getThemeIcon()}</button>
+      <span id="sync-badge" class="sync-badge ${isPending()?'pending':''}">${isPending() ? '● Offline — changes pending' : '● Synced'}</span>
+      ${STATE.view!=='home' ? `<button class="btn btn-ghost" onclick="goHome()">${ICON_ARROW_LEFT} Back</button>` : ''}
+      ${STATE.view!=='analysis' ? `<button class="btn btn-ghost" onclick="goAnalysis()">${ICON_CHART} Analysis</button>` : ''}
+      ${STATE.isAdmin
+        ? `<button class="btn btn-danger btn-sm" onclick="logoutAdmin()">Log out</button>`
+        : `<button class="btn" onclick="goAdmin()">${ICON_LOCK} Admin</button>`}
+    </div>
+  </div>`;
+}
+
+/* ============ RENDER: HOME ============ */
+function renderHome(){
+  if(!STATE.activeBuildingId) STATE.activeBuildingId = STATE.data.buildings[0].id;
+  const building = findBuilding(STATE.activeBuildingId);
+  const totals = buildingTotals(building);
+  const maxUnit = Math.max(1, ...building.rooms.map(r=>{ const l=latestFilledEntry(r); return l && l.unit ? Number(l.unit):0; }));
+
+  const tabs = STATE.data.buildings.map(b=>`
+    <div class="tab ${b.id===STATE.activeBuildingId?'active':''}" onclick="switchBuilding('${b.id}')">${escapeHtml(b.name)}</div>
+  `).join('');
+
+  const cards = building.rooms.map((room, i)=>{
+    const latest = latestFilledEntry(room);
+    const pct = latest && latest.unit ? Number(latest.unit)/maxUnit : 0;
+    const palette = [['var(--cyan)','var(--violet)'],['var(--violet)','var(--pink)'],['var(--pink)','var(--amber)'],['var(--amber)','var(--green)'],['var(--green)','var(--cyan)']][i%5];
+    return `
+    <div class="glass room-card" onclick="openRoom('${room.id}')">
+      <div class="room-card-top">
+        <div>
+          <div class="room-num">${room.tenantName ? 'ROOM ' + String(room.roomNumber).padStart(2,'0') : 'ROOM · ' + String(room.roomNumber).padStart(2,'0')}</div>
+          <div class="room-label">${room.tenantName ? escapeHtml(room.tenantName) : escapeHtml(room.label)}</div>
+          ${room.tenantName ? `<div class="room-tenant">${escapeHtml(room.label)}</div>` : `<div class="room-tenant" style="opacity:0.5;">tenant name not set</div>`}
+        </div>
+      </div>
+      <div class="gauge-wrap">
+        ${gaugeSvg(pct, palette[0], palette[1], latest ? fmtNum(latest.unit) : '—', 'units')}
+      </div>
+      <div class="room-foot">
+        <div class="room-foot-item">
+          <div class="bill mono">৳${latest ? fmtNum(latest.bill) : '—'}</div>
+          <div class="lbl">${latest ? monthShort(latest.month) : 'no data'}</div>
+        </div>
+        <div class="room-foot-item right">
+          <div class="bill mono" style="font-size:14px;color:var(--ink-dim)">৳${fmtNum(totalBill(room))}</div>
+          <div class="lbl">total</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  let thisMonthBill = 0, thisMonthUnit = 0, roomsWithData = 0;
+  building.rooms.forEach(r=>{
+    const l = latestFilledEntry(r);
+    if(l){ thisMonthBill += Number(l.bill)||0; thisMonthUnit += Number(l.unit)||0; roomsWithData++; }
+  });
+
+  return `
+  <div class="hero">
+    <div class="hero-eyebrow">Live Meter Overview</div>
+    <h1>Every room's bill,<br/>one glowing ledger.</h1>
+    <p>Tap a room to open its full reading history — previous &amp; current meter values, units consumed, and amount billed each month.</p>
+  </div>
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
+    <div class="tabs">${tabs}</div>
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+      <div class="rate-badge">⚡ Rate: <span class="mono">৳${STATE.data.rate}</span> / unit</div>
+      <button class="btn btn-sm" id="export-month-btn" onclick="exportBuildingMonthlyPDF('${building.id}')">${ICON_DOWNLOAD} This Month — All Rooms</button>
+    </div>
+  </div>
+  <div class="room-grid" style="margin-top:8px; margin-bottom:30px;">${cards}</div>
+  <div class="glass reveal month-summary">
+    <div class="summary-item">
+      <div class="v">৳${fmtNum(thisMonthBill)}</div>
+      <div class="l">Latest Month's Total (${roomsWithData} room${roomsWithData!==1?'s':''})</div>
+    </div>
+    <div class="summary-divider"></div>
+    <div class="summary-item">
+      <div class="v">${fmtNum(thisMonthUnit)}</div>
+      <div class="l">Units Consumed (latest month)</div>
+    </div>
+    <div class="summary-divider"></div>
+    <div class="summary-item">
+      <div class="v">৳${fmtNum(totals.bill)}</div>
+      <div class="l">All-Time Total, ${escapeHtml(building.name)}</div>
+    </div>
+  </div>
+  <div class="footer-note">LITON HOUSE Electricity Bill — By Shuvro Deb — data updates automatically when the admin records a new reading.</div>
+  `;
+}
+
+/* ============ RENDER: DETAIL ============ */
+function renderDetail(){
+  const found = findRoom(STATE.activeRoomId);
+  if(!found) { STATE.view='home'; return renderHome(); }
+  const {room} = found;
+  const history = [...room.history].reverse();
+  const rows = history.length ? history.map(h=>`
+    <div class="glass history-card">
+      <div>
+        <div class="hc-month">${escapeHtml(h.month)}</div>
+        ${h.manual ? '<div class="hc-year-tag">adjusted</div>' : ''}
+      </div>
+      <div class="hc-readings">
+        <div class="hc-read-item"><div class="l">Previous</div><div class="v">${fmtNum(h.prev)}</div></div>
+        <div class="hc-read-item"><div class="l">Current</div><div class="v">${fmtNum(h.curr)}</div></div>
+      </div>
+      <div class="hc-right">
+        <div class="hc-unit">${fmtNum(h.unit)} units</div>
+        ${h.manual ? '<span class="hc-manual-badge">Edited</span>' : ''}
+        <div class="hc-bill">৳${fmtNum(h.bill)}</div>
+      </div>
+    </div>
+  `).join('') : `<div class="empty-state">${ICON_EMPTY}<div>No billing history recorded yet for this room.</div></div>`;
+
+  const chartEntries = room.history.filter(h => h.unit !== null && h.unit !== undefined);
+  const metric = STATE.chartMetric === 'bill' ? 'bill' : 'unit';
+
+  return `
+  <div class="glass reveal detail-header">
+    <div class="detail-title">
+      <div class="detail-icon">${String(room.roomNumber).padStart(2,'0')}</div>
+      <div>
+        <h2>${room.tenantName ? escapeHtml(room.tenantName) : escapeHtml(room.label)}</h2>
+        <div class="sub">${room.tenantName ? escapeHtml(room.label) + ' · ' : ''}${history.length} month${history.length!==1?'s':''} recorded</div>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="v">${fmtNum(totalUnit(room))}</div><div class="l">Total Units</div></div>
+      <div class="stat"><div class="v">৳${fmtNum(totalBill(room))}</div><div class="l">Total Billed</div></div>
+    </div>
+  </div>
+
+  <div class="detail-actions">
+    <div class="rate-badge">⚡ Rate: <span class="mono">৳${STATE.data.rate}</span> / unit</div>
+    <button class="btn btn-sm" id="export-pdf-btn" onclick="exportRoomPDF('${room.id}')">${ICON_DOWNLOAD} Export PDF</button>
+  </div>
+
+  <div class="glass reveal trend-card">
+    <div class="trend-head">
+      <h3>Usage Trend</h3>
+      <div class="metric-toggle">
+        <div class="tab ${metric==='unit'?'active':''}" onclick="setChartMetric('unit')">Units</div>
+        <div class="tab ${metric==='bill'?'active':''}" onclick="setChartMetric('bill')">Bill (৳)</div>
+      </div>
+    </div>
+    ${chartEntries.length
+      ? trendChartSvg(chartEntries, metric)
+      : `<div class="empty-state" style="padding:30px;">${ICON_EMPTY}<div>Not enough recorded months yet to chart a trend.</div></div>`}
+  </div>
+
+  <div class="history-list">${rows}</div>
+  `;
+}
+
+/* ============ RENDER: ADMIN GATE ============ */
+function renderGate(){
+  return `
+  <div class="glass reveal gate">
+    <div class="brand-mark" style="width:56px;height:56px;">${ICON_BOLT}</div>
+    <h2>Admin access</h2>
+    <p>Enter the admin password to update readings and bills.</p>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="admin-pass-input" placeholder="••••••••" onkeydown="if(event.key==='Enter') tryAdminLogin()"/>
+    </div>
+    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="tryAdminLogin()">Unlock admin panel</button>
+    <div class="error-msg" id="gate-error"></div>
+  </div>`;
+}
+
+/* ============ RENDER: ADMIN PANEL ============ */
+function renderAdminPanel(){
+  if(!STATE.adminSelectedRoomId){
+    const b = STATE.data.buildings[0];
+    STATE.adminSelectedRoomId = b.rooms[0].id;
+  }
+  const found = findRoom(STATE.adminSelectedRoomId);
+  const room = found.room, building = found.building;
+
+  const sidebar = STATE.data.buildings.map(b=>`
+    <div class="admin-side-section">
+      <h4>${escapeHtml(b.name)}</h4>
+      ${b.rooms.map(r=>`
+        <div class="room-list-item ${r.id===STATE.adminSelectedRoomId?'active':''}" onclick="selectAdminRoom('${r.id}')">
+          <span>${escapeHtml(r.label)}</span>
+          <span class="mono" style="font-size:11px;opacity:0.7;">৳${fmtNum(totalBill(r))}</span>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+
+  const lastEntry = room.history.length ? room.history[room.history.length-1] : null;
+  const autoPrev = lastEntry ? (lastEntry.curr !== null && lastEntry.curr !== undefined ? lastEntry.curr : lastEntry.prev) : null;
+
+  const historyRows = [...room.history].map((h, idx)=>{
+    const realIdx = room.history.indexOf(h);
+    return `
+    <div class="admin-history-row">
+      <div class="cell"><span class="cell-label">Month</span><div class="cell-static">${escapeHtml(h.month)}</div></div>
+      <div class="cell"><span class="cell-label">Previous</span><input type="number" value="${h.prev ?? ''}" onchange="updateEntry('${room.id}', ${realIdx}, 'prev', this.value)" placeholder="prev"/></div>
+      <div class="cell"><span class="cell-label">Current</span><input type="number" value="${h.curr ?? ''}" onchange="updateEntry('${room.id}', ${realIdx}, 'curr', this.value)" placeholder="curr"/></div>
+      <div class="cell"><span class="cell-label">Units</span><input type="number" value="${h.unit ?? ''}" onchange="updateEntry('${room.id}', ${realIdx}, 'unit', this.value)" placeholder="units"/></div>
+      <div class="cell"><span class="cell-label">Bill (৳)</span><input type="number" value="${h.bill ?? ''}" onchange="updateEntry('${room.id}', ${realIdx}, 'bill', this.value)" placeholder="bill"/></div>
+      <div class="cell cell-action"><button class="btn btn-ghost btn-sm" onclick="deleteEntry('${room.id}', ${realIdx})" title="Delete row">✕ Remove</button></div>
+    </div>`;
+  }).join('');
+
+  return `
+  <div class="admin-grid">
+    <div class="glass reveal admin-sidebar">
+      <div class="admin-side-section">
+        <h4>Global settings</h4>
+        <div class="field">
+          <label>Rate per unit (৳)</label>
+          <input type="number" value="${STATE.data.rate}" onchange="updateRate(this.value)"/>
+        </div>
+      </div>
+      ${sidebar}
+    </div>
+    <div class="glass reveal admin-panel">
+      <h3>${escapeHtml(room.label)}</h3>
+      <div class="sub">Editing readings &amp; bills for this room. Bill auto-calculates as Units × Rate — override anytime.</div>
+
+      <div class="field" style="max-width:320px; margin-bottom:22px;">
+        <label>Tenant name</label>
+        <input type="text" style="font-family:'Inter'" value="${escapeHtml(room.tenantName)}" placeholder="e.g. Rahim Uddin"
+          onchange="updateTenantName('${room.id}', this.value)"/>
+      </div>
+
+      <h4 style="font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin-bottom:10px;">Add new month</h4>
+      <div class="sub" style="margin-top:-6px; margin-bottom:12px;">Previous reading, units and bill are filled in automatically — just enter this month's current meter reading.</div>
+      <div class="inline-form">
+        <div class="field">
+          <label>Month</label>
+          <select id="new-month-select">
+            ${["OCTOBER","NOVEMBER","DECEMBER","JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER"].map(m=>`<option value="${m}">${m}</option>`).join('')}
+          </select>
+        </div>
+        <div class="field">
+          <label>Previous reading ${autoPrev!==null ? '<span style="color:var(--green);text-transform:none;font-weight:500;">· auto</span>' : ''}</label>
+          <input type="number" id="new-prev" value="${autoPrev ?? ''}" placeholder="prev" ${autoPrev!==null ? 'readonly style="opacity:0.6;cursor:not-allowed;"' : ''} oninput="autoCalcNew()"/>
+        </div>
+        <div class="field">
+          <label>Current reading</label>
+          <input type="number" id="new-curr" placeholder="this month's reading" oninput="autoCalcNew()" autofocus/>
+        </div>
+        <div class="field">
+          <label>Units <span style="color:var(--green);text-transform:none;font-weight:500;">· auto</span></label>
+          <input type="number" id="new-unit" placeholder="units" readonly style="opacity:0.6;cursor:not-allowed;"/>
+        </div>
+        <div class="field">
+          <label>Bill (৳) <span style="color:var(--green);text-transform:none;font-weight:500;">· auto</span></label>
+          <input type="number" id="new-bill" placeholder="bill" readonly style="opacity:0.6;cursor:not-allowed;"/>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="addEntry('${room.id}')">+ Add</button>
+      </div>
+
+      <h4 style="font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin-bottom:6px;">History (editable)</h4>
+      <div class="admin-history-head">
+        <div>Month</div><div>Previous</div><div>Current</div><div>Units</div><div>Bill (৳)</div><div></div>
+      </div>
+      ${historyRows || '<div class="empty-state" style="padding:30px;">No entries yet — add the first month above.</div>'}
+    </div>
+  </div>
+  `;
+}
+
+/* ============ ACTIONS ============ */
+function goHome(){ STATE.view='home'; render(); }
+function switchBuilding(id){ STATE.activeBuildingId = id; render(); }
+function openRoom(roomId){ STATE.activeRoomId = roomId; STATE.view='detail'; render(); window.scrollTo({top:0, behavior:'smooth'}); }
+function goAdmin(){ STATE.view='admin'; render(); setTimeout(()=>{ const el=document.getElementById('admin-pass-input'); if(el) el.focus(); },50); }
+function goAnalysis(){ STATE.view='analysis'; render(); window.scrollTo({top:0, behavior:'smooth'}); }
+function logoutAdmin(){ STATE.isAdmin=false; STATE.view='home'; render(); }
+
+function tryAdminLogin(){
+  const val = document.getElementById('admin-pass-input').value;
+  if(val === ADMIN_PASSWORD){
+    STATE.isAdmin = true;
+    document.getElementById('gate-error').textContent='';
+    render();
+  }else{
+    document.getElementById('gate-error').textContent = 'Incorrect password. Try again.';
+  }
+}
+
+function autoCalcNew(){
+  const prev = parseFloat(document.getElementById('new-prev').value);
+  const curr = parseFloat(document.getElementById('new-curr').value);
+  const unitEl = document.getElementById('new-unit');
+  const billEl = document.getElementById('new-bill');
+  if(!isNaN(prev) && !isNaN(curr) && curr>=prev){
+    const unit = curr - prev;
+    unitEl.value = unit;
+    billEl.value = Math.round(unit * STATE.data.rate);
+  }else{
+    unitEl.value = '';
+    billEl.value = '';
+  }
+}
+
+async function addEntry(roomId){
+  const found = findRoom(roomId);
+  const month = document.getElementById('new-month-select').value;
+  const prev = document.getElementById('new-prev').value;
+  const curr = document.getElementById('new-curr').value;
+  const unit = document.getElementById('new-unit').value;
+  const bill = document.getElementById('new-bill').value;
+  if(prev === ''){ showToast('Previous reading is missing — add it once manually', 'error'); return; }
+  if(curr === ''){ showToast('Enter this month\u2019s current reading', 'error'); return; }
+  if(Number(curr) < Number(prev)){ showToast('Current reading cannot be less than previous', 'error'); return; }
+  found.room.history.push({
+    month, prev: Number(prev), curr: Number(curr),
+    unit: Number(unit), bill: Number(bill), manual:false
+  });
+  await saveData();
+  showToast('Month added — units & bill calculated ✓');
+  render();
+  const newCurrEl = document.getElementById('new-curr');
+  if(newCurrEl) newCurrEl.focus();
+}
+
+async function updateEntry(roomId, idx, field, value){
+  const found = findRoom(roomId);
+  const entry = found.room.history[idx];
+  entry[field] = value===''? null : Number(value);
+  entry.manual = true;
+  // if editing prev/curr, keep unit/bill as-is (manual override authority stays with admin)
+  await saveData();
+  showToast('Updated ✓');
+  render();
+}
+
+async function deleteEntry(roomId, idx){
+  const found = findRoom(roomId);
+  found.room.history.splice(idx,1);
+  await saveData();
+  showToast('Row removed');
+  render();
+}
+
+async function updateTenantName(roomId, value){
+  const found = findRoom(roomId);
+  found.room.tenantName = value;
+  await saveData();
+  showToast('Tenant name saved ✓');
+}
+
+async function updateRate(value){
+  const v = Number(value);
+  if(!isNaN(v) && v>0){ STATE.data.rate = v; await saveData(); showToast('Rate updated ✓'); }
+}
+
+function selectAdminRoom(roomId){ STATE.adminSelectedRoomId = roomId; render(); }
+
+function attachHandlers(){
+  initScrollReveal();
+  updateTopbarScroll();
+}
+
+/* ============ EXPORT TO PDF ============ */
+function hexToRgba(hex, a){
+  const h = hex.replace('#','');
+  const r = parseInt(h.substring(0,2),16), g = parseInt(h.substring(2,4),16), b = parseInt(h.substring(4,6),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+function buildPrintable(room, building){
+  const rows = room.history.map(h => `
+    <tr>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea;">${escapeHtml(h.month)}</td>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea; text-align:right;">${fmtNum(h.prev)}</td>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea; text-align:right;">${fmtNum(h.curr)}</td>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea; text-align:right;">${fmtNum(h.unit)}</td>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea; text-align:right; font-weight:600;">৳${fmtNum(h.bill)}</td>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea; color:#b8860b;">${h.manual ? 'Adjusted' : ''}</td>
+    </tr>`).join('');
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed; left:-9999px; top:0; width:760px; background:#ffffff; color:#151622; font-family:Arial,Helvetica,sans-serif; padding:34px;';
+  wrap.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid #2dd4f0; padding-bottom:14px; margin-bottom:22px;">
+      <div>
+        <div style="font-size:23px; font-weight:700;">LITON HOUSE</div>
+        <div style="font-size:12px; color:#777;">Electricity Billing Statement · By Shuvro Deb</div>
+      </div>
+      <div style="text-align:right; font-size:11.5px; color:#888;">Generated ${escapeHtml(new Date().toLocaleDateString())}</div>
+    </div>
+    <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-size:13px; line-height:1.7;">
+      <div>
+        <div><strong>Building:</strong> ${escapeHtml(building.name)}</div>
+        <div><strong>Room:</strong> ${escapeHtml(room.label)}</div>
+        ${room.tenantName ? `<div><strong>Tenant:</strong> ${escapeHtml(room.tenantName)}</div>` : ''}
+      </div>
+      <div style="text-align:right;">
+        <div><strong>Rate:</strong> ৳${STATE.data.rate} / unit</div>
+        <div><strong>Total units:</strong> ${fmtNum(totalUnit(room))}</div>
+        <div><strong>Total billed:</strong> ৳${fmtNum(totalBill(room))}</div>
+      </div>
+    </div>
+    <table style="width:100%; border-collapse:collapse; font-size:12.5px;">
+      <thead>
+        <tr style="background:#152238; color:#fff;">
+          <th style="padding:8px; text-align:left;">Month</th>
+          <th style="padding:8px; text-align:right;">Previous</th>
+          <th style="padding:8px; text-align:right;">Current</th>
+          <th style="padding:8px; text-align:right;">Units</th>
+          <th style="padding:8px; text-align:right;">Bill</th>
+          <th style="padding:8px; text-align:left;">Note</th>
+        </tr>
+      </thead>
+      <tbody>${rows || `<tr><td colspan="6" style="padding:16px; text-align:center; color:#999;">No entries recorded yet.</td></tr>`}</tbody>
+    </table>
+    <div style="margin-top:28px; font-size:10px; color:#aaa; text-align:center;">LITON HOUSE Electricity Bill — auto-generated statement</div>
+  `;
+  document.body.appendChild(wrap);
+  return wrap;
+}
+
+async function exportRoomPDF(roomId){
+  const found = findRoom(roomId);
+  if(!found){ showToast('Room not found', 'error'); return; }
+  if(typeof html2canvas === 'undefined' || !window.jspdf){
+    showToast('PDF tools failed to load — check your connection', 'error');
+    return;
+  }
+  const btn = document.getElementById('export-pdf-btn');
+  if(btn) btn.disabled = true;
+  showToast('Preparing PDF…');
+  const { room, building } = found;
+  const wrap = buildPrintable(room, building);
+  try{
+    const canvas = await html2canvas(wrap, { scale:2, backgroundColor:'#ffffff', useCORS:true });
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ unit:'pt', format:'a4' });
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const margin = 30;
+    const imgW = pageW - margin*2;
+    const imgH = canvas.height * (imgW / canvas.width);
+    const imgData = canvas.toDataURL('image/png');
+    const usableH = pageH - margin*2;
+
+    let heightLeft = imgH;
+    let position = margin;
+    pdf.addImage(imgData, 'PNG', margin, position, imgW, imgH);
+    heightLeft -= usableH;
+    while(heightLeft > 0){
+      position = margin - (imgH - heightLeft);
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', margin, position, imgW, imgH);
+      heightLeft -= usableH;
+    }
+
+    const safeLabel = (room.tenantName || room.label).replace(/[^a-z0-9]+/gi, '_');
+    pdf.save(`LitonHouse_${safeLabel}.pdf`);
+    showToast('PDF downloaded ✓');
+  }catch(e){
+    console.error('PDF export error:', e);
+    showToast('Could not generate PDF', 'error');
+  }finally{
+    wrap.remove();
+    if(btn) btn.disabled = false;
+  }
+}
+
+/* ============ EXPORT: WHOLE-BUILDING, CURRENT MONTH, ALL ROOMS ============ */
+function buildMonthlyPrintable(building){
+  let totalUnitSum = 0, totalBillSum = 0, roomsCounted = 0;
+
+  const rows = building.rooms.map(r=>{
+    const e = latestFilledEntry(r);
+    if(e){ totalUnitSum += Number(e.unit)||0; totalBillSum += Number(e.bill)||0; roomsCounted++; }
+    return `
+    <tr>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea;">${escapeHtml(r.label)}</td>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea;">${r.tenantName ? escapeHtml(r.tenantName) : '—'}</td>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea;">${e ? escapeHtml(e.month) : '—'}</td>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea; text-align:right;">${e ? fmtNum(e.prev) : '—'}</td>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea; text-align:right;">${e ? fmtNum(e.curr) : '—'}</td>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea; text-align:right;">${e ? fmtNum(e.unit) : '—'}</td>
+      <td style="padding:7px 8px; border-bottom:1px solid #e7e7ea; text-align:right; font-weight:600;">${e ? '৳'+fmtNum(e.bill) : '—'}</td>
+    </tr>`;
+  }).join('');
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed; left:-9999px; top:0; width:820px; background:#ffffff; color:#151622; font-family:Arial,Helvetica,sans-serif; padding:34px;';
+  wrap.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid #2dd4f0; padding-bottom:14px; margin-bottom:22px;">
+      <div>
+        <div style="font-size:23px; font-weight:700;">LITON HOUSE</div>
+        <div style="font-size:12px; color:#777;">Monthly Statement — All Rooms · By Shuvro Deb</div>
+      </div>
+      <div style="text-align:right; font-size:11.5px; color:#888;">Generated ${escapeHtml(new Date().toLocaleDateString())}</div>
+    </div>
+    <div style="margin-bottom:18px; font-size:13px;"><strong>Building:</strong> ${escapeHtml(building.name)} &nbsp;·&nbsp; <strong>Rate:</strong> ৳${STATE.data.rate} / unit</div>
+    <table style="width:100%; border-collapse:collapse; font-size:12px;">
+      <thead>
+        <tr style="background:#152238; color:#fff;">
+          <th style="padding:8px; text-align:left;">Room</th>
+          <th style="padding:8px; text-align:left;">Tenant</th>
+          <th style="padding:8px; text-align:left;">Month</th>
+          <th style="padding:8px; text-align:right;">Previous</th>
+          <th style="padding:8px; text-align:right;">Current</th>
+          <th style="padding:8px; text-align:right;">Units</th>
+          <th style="padding:8px; text-align:right;">Bill</th>
+        </tr>
+      </thead>
+      <tbody>${rows || `<tr><td colspan="7" style="padding:16px; text-align:center; color:#999;">No rooms in this building.</td></tr>`}</tbody>
+      <tfoot>
+        <tr style="background:#f2f4f8; font-weight:700;">
+          <td style="padding:8px;" colspan="5">Total (${roomsCounted} room${roomsCounted!==1?'s':''} with a reading)</td>
+          <td style="padding:8px; text-align:right;">${fmtNum(totalUnitSum)}</td>
+          <td style="padding:8px; text-align:right;">৳${fmtNum(totalBillSum)}</td>
+        </tr>
+      </tfoot>
+    </table>
+    <div style="margin-top:28px; font-size:10px; color:#aaa; text-align:center;">LITON HOUSE Electricity Bill — auto-generated statement</div>
+  `;
+  document.body.appendChild(wrap);
+  return wrap;
+}
+
+async function exportBuildingMonthlyPDF(buildingId){
+  const building = findBuilding(buildingId);
+  if(!building){ showToast('Building not found', 'error'); return; }
+  if(typeof html2canvas === 'undefined' || !window.jspdf){
+    showToast('PDF tools failed to load — check your connection', 'error');
+    return;
+  }
+  const btn = document.getElementById('export-month-btn');
+  if(btn) btn.disabled = true;
+  showToast('Preparing PDF…');
+  const wrap = buildMonthlyPrintable(building);
+  try{
+    const canvas = await html2canvas(wrap, { scale:2, backgroundColor:'#ffffff', useCORS:true });
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ unit:'pt', format:'a4' });
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const margin = 30;
+    const imgW = pageW - margin*2;
+    const imgH = canvas.height * (imgW / canvas.width);
+    const imgData = canvas.toDataURL('image/png');
+    const usableH = pageH - margin*2;
+
+    let heightLeft = imgH;
+    let position = margin;
+    pdf.addImage(imgData, 'PNG', margin, position, imgW, imgH);
+    heightLeft -= usableH;
+    while(heightLeft > 0){
+      position = margin - (imgH - heightLeft);
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', margin, position, imgW, imgH);
+      heightLeft -= usableH;
+    }
+
+    const safeLabel = building.name.replace(/[^a-z0-9]+/gi, '_');
+    pdf.save(`LitonHouse_${safeLabel}_AllRooms_ThisMonth.pdf`);
+    showToast('PDF downloaded ✓');
+  }catch(e){
+    console.error('PDF export error:', e);
+    showToast('Could not generate PDF', 'error');
+  }finally{
+    wrap.remove();
+    if(btn) btn.disabled = false;
+  }
+}
+
+/* ============ FLOATING BACKGROUND (words, logo, mini-lights) ============ */
+const FLOAT_WORDS = [
+  { type:'logo', top:12, left:6 },
+  { text:'DEV', top:8, left:85, size:30, color:'#2dd4f0' },
+  { text:'ELECTRICITY BILL', top:70, left:56, size:24, color:'#a679ff' },
+  { text:'ROOM', top:58, left:12, size:42, color:'#ff6fa5' },
+  { text:'LITON RENT HOUSE', top:87, left:34, size:22, color:'#ffc857' },
+  { text:'UNIT', top:42, left:86, size:38, color:'#4ee6a8' }
+];
+
+function makeDraggable(el){
+  let dragging = false, startX = 0, startY = 0, origLeft = 0, origTop = 0;
+
+  function onDown(x, y){
+    const rect = el.getBoundingClientRect();
+    origLeft = rect.left; origTop = rect.top;
+    el.style.left = origLeft + 'px';
+    el.style.top = origTop + 'px';
+    el.style.right = 'auto'; el.style.bottom = 'auto';
+    el.classList.add('dragging');
+    startX = x; startY = y;
+    dragging = true;
+  }
+  function onMove(x, y){
+    if(!dragging) return;
+    el.style.left = (origLeft + (x - startX)) + 'px';
+    el.style.top = (origTop + (y - startY)) + 'px';
+  }
+  function onUp(){
+    dragging = false;
+    el.classList.remove('dragging');
+  }
+
+  el.addEventListener('mousedown', e => { onDown(e.clientX, e.clientY); e.preventDefault(); });
+  window.addEventListener('mousemove', e => onMove(e.clientX, e.clientY));
+  window.addEventListener('mouseup', onUp);
+
+  el.addEventListener('touchstart', e => { const t = e.touches[0]; onDown(t.clientX, t.clientY); }, { passive:true });
+  el.addEventListener('touchmove', e => { const t = e.touches[0]; onMove(t.clientX, t.clientY); e.preventDefault(); }, { passive:false });
+  el.addEventListener('touchend', onUp);
+}
+
+function initFloatingBg(){
+  const layer = document.getElementById('float-layer');
+  if(!layer || layer.dataset.built) return;
+  layer.dataset.built = '1';
+
+  FLOAT_WORDS.forEach(w=>{
+    const el = document.createElement('div');
+    el.className = 'float-item' + (w.type === 'logo' ? ' float-logo' : '');
+    el.style.top = w.top + '%';
+    el.style.left = w.left + '%';
+
+    if(w.type === 'logo'){
+      el.innerHTML = ICON_BOLT;
+    } else {
+      el.textContent = w.text;
+      el.style.fontSize = w.size + 'px';
+      el.style.setProperty('--fsz', w.size + 'px');
+      el.style.textShadow = `0 0 40px ${hexToRgba(w.color, 0.22)}`;
+    }
+
+    el.style.setProperty('--dur', (20 + Math.random()*14).toFixed(1) + 's');
+    el.style.setProperty('--delay', (-(Math.random()*10)).toFixed(1) + 's');
+    el.style.setProperty('--dx', (20 + Math.random()*40).toFixed(0) + 'px');
+    el.style.setProperty('--dy', (-(20 + Math.random()*40)).toFixed(0) + 'px');
+    el.style.setProperty('--rot', (Math.random()*6 - 3).toFixed(1) + 'deg');
+
+    layer.appendChild(el);
+    makeDraggable(el);
+  });
+
+  const colors = ['#2dd4f0','#a679ff','#ffc857','#ff6fa5','#4ee6a8'];
+  for(let i=0; i<22; i++){
+    const dot = document.createElement('div');
+    dot.className = 'mini-light';
+    const size = 2 + Math.random()*3;
+    const c = colors[i % colors.length];
+    dot.style.width = size + 'px';
+    dot.style.height = size + 'px';
+    dot.style.left = (Math.random()*100).toFixed(1) + '%';
+    dot.style.top = (Math.random()*100).toFixed(1) + '%';
+    dot.style.background = c;
+    dot.style.boxShadow = `0 0 ${(6 + size*2).toFixed(0)}px ${c}`;
+    dot.style.setProperty('--tdur', (3 + Math.random()*4).toFixed(1) + 's');
+    dot.style.animationDelay = (-(Math.random()*5)).toFixed(1) + 's';
+    layer.appendChild(dot);
+  }
+}
+
+/* ============ INIT ============ */
+/* ============ 3D TILT ON CARDS (mouse + touch, via Pointer Events) ============ */
+function initTilt(){
+  if(window.__tiltBound) return;
+  window.__tiltBound = true;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const SEL = '.room-card, .history-card, .glass.trend-card';
+
+  document.addEventListener('pointermove', (e)=>{
+    const card = e.target.closest(SEL);
+    if(!card) return;
+    const rect = card.getBoundingClientRect();
+    if(rect.width === 0 || rect.height === 0) return;
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    const rx = (py - 0.5) * -9;
+    const ry = (px - 0.5) * 9;
+    card.style.transform = `perspective(700px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-4px) translateZ(0)`;
+  }, { passive:true });
+
+  document.addEventListener('pointerout', (e)=>{
+    const card = e.target.closest(SEL);
+    if(card && (!e.relatedTarget || !card.contains(e.relatedTarget))){
+      card.style.transform = '';
+    }
+  }, { passive:true });
+}
+
+/* ============ SCROLL-REVEAL (IntersectionObserver) ============ */
+let revealObserver = null;
+function initScrollReveal(){
+  if(revealObserver) revealObserver.disconnect();
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.12, rootMargin:'0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal:not(.in-view)').forEach(el=> revealObserver.observe(el));
+}
+
+/* ============ PARALLAX DEPTH (background layers scroll slower than content) ============ */
+function initParallax(){
+  if(window.__parallaxBound) return;
+  window.__parallaxBound = true;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let ticking = false;
+  function apply(){
+    const sy = window.scrollY;
+    document.querySelectorAll('.parallax-layer').forEach(layer=>{
+      const speed = parseFloat(layer.dataset.speed) || 0.05;
+      layer.style.transform = `translate3d(0, ${(sy*speed).toFixed(1)}px, 0)`;
+    });
+    const floatLayer = document.getElementById('float-layer');
+    if(floatLayer) floatLayer.style.transform = `translate3d(0, ${(sy*0.03).toFixed(1)}px, 0)`;
+    ticking = false;
+  }
+  window.addEventListener('scroll', ()=>{
+    if(!ticking){ requestAnimationFrame(apply); ticking = true; }
+  }, { passive:true });
+}
+
+/* ============ TOPBAR: frosted state once scrolled ============ */
+function updateTopbarScroll(){
+  const el = document.querySelector('.topbar');
+  if(!el) return;
+  el.classList.toggle('scrolled', window.scrollY > 24);
+}
+if(!window.__topbarScrollBound){
+  window.__topbarScrollBound = true;
+  window.addEventListener('scroll', updateTopbarScroll, { passive:true });
+}
+
+/* ============ ANIMATED 3D BACKGROUND SCENE (Three.js) ============ */
+let bg3dStarted = false;
+function initBg3D(){
+  if(bg3dStarted) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(typeof THREE === 'undefined') { console.warn('Volt Ledger: 3D background skipped (Three.js failed to load).'); return; }
+  const canvas = document.getElementById('bg3d');
+  if(!canvas) return;
+
+  let renderer;
+  try{
+    renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true, powerPreference:'low-power' });
+  }catch(e){ console.warn('Volt Ledger: WebGL unavailable, 3D background skipped.', e); return; }
+  bg3dStarted = true;
+
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 100);
+  camera.position.z = 14;
+
+  const palette = [0x2dd4f0, 0xa679ff, 0xff6fa5, 0xffc857, 0x4ee6a8];
+  const geoFns = [
+    ()=> new THREE.IcosahedronGeometry(1.1, 0),
+    ()=> new THREE.OctahedronGeometry(1, 0),
+    ()=> new THREE.TetrahedronGeometry(1.2, 0),
+    ()=> new THREE.TorusGeometry(0.9, 0.26, 8, 16)
+  ];
+
+  const shapes = [];
+  for(let i=0; i<9; i++){
+    const geo = geoFns[i % geoFns.length]();
+    const edges = new THREE.EdgesGeometry(geo);
+    const mat = new THREE.LineBasicMaterial({ color: palette[i % palette.length], transparent:true, opacity:0.32 });
+    const mesh = new THREE.LineSegments(edges, mat);
+    mesh.position.set((Math.random()-0.5)*18, (Math.random()-0.5)*12, (Math.random()-0.5)*10 - 4);
+    mesh.scale.setScalar(0.6 + Math.random()*1.1);
+    mesh.userData.rot = { x:(Math.random()-0.5)*0.004, y:(Math.random()-0.5)*0.006 };
+    mesh.userData.floatSpeed = 0.2 + Math.random()*0.3;
+    mesh.userData.floatOffset = Math.random()*Math.PI*2;
+    mesh.userData.baseY = mesh.position.y;
+    scene.add(mesh);
+    shapes.push(mesh);
+  }
+
+  const particleCount = 130;
+  const positions = new Float32Array(particleCount*3);
+  for(let i=0; i<particleCount; i++){
+    positions[i*3] = (Math.random()-0.5)*32;
+    positions[i*3+1] = (Math.random()-0.5)*22;
+    positions[i*3+2] = (Math.random()-0.5)*20 - 5;
+  }
+  const particleGeo = new THREE.BufferGeometry();
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const particleMat = new THREE.PointsMaterial({ color:0x9fb4ff, size:0.045, transparent:true, opacity:0.5 });
+  const particles = new THREE.Points(particleGeo, particleMat);
+  scene.add(particles);
+
+  const clock = new THREE.Clock();
+  let scrollDip = 0;
+
+  function animate(){
+    requestAnimationFrame(animate);
+    if(document.hidden) return;
+    const t = clock.getElapsedTime();
+    shapes.forEach(mesh=>{
+      mesh.rotation.x += mesh.userData.rot.x;
+      mesh.rotation.y += mesh.userData.rot.y;
+      mesh.position.y = mesh.userData.baseY + Math.sin(t*mesh.userData.floatSpeed + mesh.userData.floatOffset) * 0.5;
+    });
+    particles.rotation.y = t * 0.01;
+    camera.position.x = Math.sin(t*0.05) * 1.2;
+    camera.position.y = Math.cos(t*0.04) * 0.6 ;
+    camera.position.z = 14 - scrollDip;
+    camera.lookAt(0, 0, 0);
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', ()=>{
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  window.addEventListener('scroll', ()=>{
+    scrollDip = Math.min(window.scrollY * 0.004, 3);
+  }, { passive:true });
+}
+
+/* ============ INIT ============ */
+function hideBootLoader(){
+  const el = document.getElementById('boot-loader');
+  if(!el) return;
+  el.classList.add('hide');
+  setTimeout(()=>{ if(el && el.parentNode) el.parentNode.removeChild(el); }, 700);
+}
+function sleep(ms){ return new Promise(res=>setTimeout(res, ms)); }
+
+async function init(){
+  initFloatingBg();
+  initTilt();
+  initParallax();
+  try{ initBg3D(); }catch(e){ console.warn('Volt Ledger: 3D background failed to start.', e); }
+  const [data] = await Promise.all([ loadData(), sleep(650) ]);
+  STATE.data = data;
+  STATE.loading = false;
+  render();
+  startLiveSync();
+  hideBootLoader();
+}
+init();
+</script>
+</body>
+</html>
